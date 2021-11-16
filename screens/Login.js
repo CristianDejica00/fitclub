@@ -9,7 +9,7 @@ import { NavigationActions } from 'react-navigation';
 
 
 export default function LoginScreen({navigation}) {
-
+   //
   const [isLoggedin, setIsLogged] = useState(false);
 
   useEffect(() => {
