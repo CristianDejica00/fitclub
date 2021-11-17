@@ -79,7 +79,7 @@ export default function LoginScreen({navigation}) {
     return (
       <View style={styles.loginScreen}>
           <StatusBar/>
-          <ImageBackground source={require('../assets/login_bg.jpg')} style={{width:"100%", height:"50%", position: "absolute"}} resizeMode="stretch"></ImageBackground>
+          <ImageBackground source={require('../assets/login_bg.jpg')} style={{width:"100%", height:200, position: "absolute"}} resizeMode="stretch"></ImageBackground>
           <SafeAreaView style={styles.safearea}>
             <View></View>
             <View behavior="padding" style={styles.formarea}>

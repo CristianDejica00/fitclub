@@ -33,6 +33,114 @@ export default function VouchersScreen({route, navigation}) {
                 <View style={styles.homeHeader}>
                     <Text style={{color:"#A0A0A0", fontSize:24, fontWeight: "bold"}}>Your vouchers</Text>
                 </View>
+
+                
+                <View style={styles.bookingCard}>
+                    <View style={{flex: 1}}>
+                        <View style={{flexDirection: "row"}}>
+                            <Text style={{fontSize: 16, color: "#5CBBBB", fontWeight: "bold"}}>Voucher Sample 1</Text>
+                        </View>
+                        <Text style={{color: "#696969", fontSize: 12}}>Share it to a friend and build your community</Text>
+                    </View>
+                    <TouchableOpacity style={{marginLeft: 10}}>
+                        <Svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <Path d="M20.4549 0.138792L0.536735 11.6263C-0.241083 12.0731 -0.142244 13.1557 0.631276 13.4822L5.19934 15.3982L17.5456 4.52072C17.7819 4.31022 18.1171 4.63242 17.9152 4.87729L7.56288 17.4861V20.9444C7.56288 21.9582 8.78762 22.3578 9.38925 21.6231L12.1181 18.3023L17.4725 20.5449C18.0828 20.8026 18.7789 20.4203 18.8907 19.763L21.9847 1.2042C22.1308 0.336409 21.1983 -0.290809 20.4549 0.138792Z" fill="#5CBBBB"/>
+                        </Svg>
+                    </TouchableOpacity>
+                </View>
+                <View style={styles.bookingCard}>
+                    <View style={{flex: 1}}>
+                        <View style={{flexDirection: "row"}}>
+                            <Text style={{fontSize: 16, color: "#5CBBBB", fontWeight: "bold"}}>Voucher Sample 2</Text>
+                        </View>
+                        <Text style={{color: "#696969", fontSize: 12}}>Share it to a friend and build your community</Text>
+                    </View>
+                    <TouchableOpacity style={{marginLeft: 10}}>
+                        <Svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <Path d="M20.4549 0.138792L0.536735 11.6263C-0.241083 12.0731 -0.142244 13.1557 0.631276 13.4822L5.19934 15.3982L17.5456 4.52072C17.7819 4.31022 18.1171 4.63242 17.9152 4.87729L7.56288 17.4861V20.9444C7.56288 21.9582 8.78762 22.3578 9.38925 21.6231L12.1181 18.3023L17.4725 20.5449C18.0828 20.8026 18.7789 20.4203 18.8907 19.763L21.9847 1.2042C22.1308 0.336409 21.1983 -0.290809 20.4549 0.138792Z" fill="#5CBBBB"/>
+                        </Svg>
+                    </TouchableOpacity>
+                </View>
+                <View style={styles.bookingCardInvalid}>
+                    <View style={{flex: 1}}>
+                        <View style={{flexDirection: "row"}}>
+                            <Text style={{fontSize: 16, color: "#5B5B5B", fontWeight: "bold"}}>Voucher Sample 3</Text>
+                        </View>
+                        <Text style={{color: "#696969", fontSize: 12}}>Share it to a friend and build your community</Text>
+                    </View>
+                    <TouchableOpacity style={{marginLeft: 10, opacity:0}}>
+                        <Svg style={{opacity:0}} width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <Path d="M20.4549 0.138792L0.536735 11.6263C-0.241083 12.0731 -0.142244 13.1557 0.631276 13.4822L5.19934 15.3982L17.5456 4.52072C17.7819 4.31022 18.1171 4.63242 17.9152 4.87729L7.56288 17.4861V20.9444C7.56288 21.9582 8.78762 22.3578 9.38925 21.6231L12.1181 18.3023L17.4725 20.5449C18.0828 20.8026 18.7789 20.4203 18.8907 19.763L21.9847 1.2042C22.1308 0.336409 21.1983 -0.290809 20.4549 0.138792Z" fill="#5CBBBB"/>
+                        </Svg>
+                    </TouchableOpacity>
+                </View>
+                <View style={styles.bookingCardInvalid}>
+                    <View style={{flex: 1}}>
+                        <View style={{flexDirection: "row"}}>
+                            <Text style={{fontSize: 16, color: "#5B5B5B", fontWeight: "bold"}}>Voucher Sample 4</Text>
+                        </View>
+                        <Text style={{color: "#696969", fontSize: 12}}>Share it to a friend and build your community</Text>
+                    </View>
+                    <TouchableOpacity style={{marginLeft: 10, opacity:0}}>
+                        <Svg style={{opacity:0}} width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <Path d="M20.4549 0.138792L0.536735 11.6263C-0.241083 12.0731 -0.142244 13.1557 0.631276 13.4822L5.19934 15.3982L17.5456 4.52072C17.7819 4.31022 18.1171 4.63242 17.9152 4.87729L7.56288 17.4861V20.9444C7.56288 21.9582 8.78762 22.3578 9.38925 21.6231L12.1181 18.3023L17.4725 20.5449C18.0828 20.8026 18.7789 20.4203 18.8907 19.763L21.9847 1.2042C22.1308 0.336409 21.1983 -0.290809 20.4549 0.138792Z" fill="#5CBBBB"/>
+                        </Svg>
+                    </TouchableOpacity>
+                </View>
+                <View style={styles.bookingCardInvalid}>
+                    <View style={{flex: 1}}>
+                        <View style={{flexDirection: "row"}}>
+                            <Text style={{fontSize: 16, color: "#5B5B5B", fontWeight: "bold"}}>Voucher Sample 5</Text>
+                        </View>
+                        <Text style={{color: "#696969", fontSize: 12}}>Share it to a friend and build your community</Text>
+                    </View>
+                    <TouchableOpacity style={{marginLeft: 10, opacity:0}}>
+                        <Svg style={{opacity:0}} width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <Path d="M20.4549 0.138792L0.536735 11.6263C-0.241083 12.0731 -0.142244 13.1557 0.631276 13.4822L5.19934 15.3982L17.5456 4.52072C17.7819 4.31022 18.1171 4.63242 17.9152 4.87729L7.56288 17.4861V20.9444C7.56288 21.9582 8.78762 22.3578 9.38925 21.6231L12.1181 18.3023L17.4725 20.5449C18.0828 20.8026 18.7789 20.4203 18.8907 19.763L21.9847 1.2042C22.1308 0.336409 21.1983 -0.290809 20.4549 0.138792Z" fill="#5CBBBB"/>
+                        </Svg>
+                    </TouchableOpacity>
+                </View>
+                <View style={styles.bookingCardInvalid}>
+                    <View style={{flex: 1}}>
+                        <View style={{flexDirection: "row"}}>
+                            <Text style={{fontSize: 16, color: "#5B5B5B", fontWeight: "bold"}}>Voucher Sample 6</Text>
+                        </View>
+                        <Text style={{color: "#696969", fontSize: 12}}>Share it to a friend and build your community</Text>
+                    </View>
+                    <TouchableOpacity style={{marginLeft: 10, opacity:0}}>
+                        <Svg style={{opacity:0}} width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <Path d="M20.4549 0.138792L0.536735 11.6263C-0.241083 12.0731 -0.142244 13.1557 0.631276 13.4822L5.19934 15.3982L17.5456 4.52072C17.7819 4.31022 18.1171 4.63242 17.9152 4.87729L7.56288 17.4861V20.9444C7.56288 21.9582 8.78762 22.3578 9.38925 21.6231L12.1181 18.3023L17.4725 20.5449C18.0828 20.8026 18.7789 20.4203 18.8907 19.763L21.9847 1.2042C22.1308 0.336409 21.1983 -0.290809 20.4549 0.138792Z" fill="#5CBBBB"/>
+                        </Svg>
+                    </TouchableOpacity>
+                </View>
+                <View style={styles.bookingCardInvalid}>
+                    <View style={{flex: 1}}>
+                        <View style={{flexDirection: "row"}}>
+                            <Text style={{fontSize: 16, color: "#5B5B5B", fontWeight: "bold"}}>Voucher Sample 7</Text>
+                        </View>
+                        <Text style={{color: "#696969", fontSize: 12}}>Share it to a friend and build your community</Text>
+                    </View>
+                    <TouchableOpacity style={{marginLeft: 10, opacity:0}}>
+                        <Svg style={{opacity:0}} width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <Path d="M20.4549 0.138792L0.536735 11.6263C-0.241083 12.0731 -0.142244 13.1557 0.631276 13.4822L5.19934 15.3982L17.5456 4.52072C17.7819 4.31022 18.1171 4.63242 17.9152 4.87729L7.56288 17.4861V20.9444C7.56288 21.9582 8.78762 22.3578 9.38925 21.6231L12.1181 18.3023L17.4725 20.5449C18.0828 20.8026 18.7789 20.4203 18.8907 19.763L21.9847 1.2042C22.1308 0.336409 21.1983 -0.290809 20.4549 0.138792Z" fill="#5CBBBB"/>
+                        </Svg>
+                    </TouchableOpacity>
+                </View>
+                <View style={styles.bookingCardInvalid}>
+                    <View style={{flex: 1}}>
+                        <View style={{flexDirection: "row"}}>
+                            <Text style={{fontSize: 16, color: "#5B5B5B", fontWeight: "bold"}}>Voucher Sample 8</Text>
+                        </View>
+                        <Text style={{color: "#696969", fontSize: 12}}>Share it to a friend and build your community</Text>
+                    </View>
+                    <TouchableOpacity style={{marginLeft: 10, opacity:0}}>
+                        <Svg style={{opacity:0}} width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <Path d="M20.4549 0.138792L0.536735 11.6263C-0.241083 12.0731 -0.142244 13.1557 0.631276 13.4822L5.19934 15.3982L17.5456 4.52072C17.7819 4.31022 18.1171 4.63242 17.9152 4.87729L7.56288 17.4861V20.9444C7.56288 21.9582 8.78762 22.3578 9.38925 21.6231L12.1181 18.3023L17.4725 20.5449C18.0828 20.8026 18.7789 20.4203 18.8907 19.763L21.9847 1.2042C22.1308 0.336409 21.1983 -0.290809 20.4549 0.138792Z" fill="#5CBBBB"/>
+                        </Svg>
+                    </TouchableOpacity>
+                </View>
+
+                <View style={{height:40}}></View>
             </SafeAreaView> 
         </ScrollView>
         <View style={styles.navbar}>
@@ -116,6 +224,19 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         alignItems: "center",
         paddingHorizontal: 20
+    },
+    bookingCardInvalid: {
+        height: 80,
+        width: "100%",
+        backgroundColor: "white",
+        elevation: 10,
+        borderRadius: 10,
+        marginVertical: 5,
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        paddingHorizontal: 20,
+        opacity: 0.5
     },
     navbar: {
         height: 60,
