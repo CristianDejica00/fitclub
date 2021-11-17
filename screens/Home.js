@@ -5,22 +5,41 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Svg, Rect, Path } from 'react-native-svg';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Modalize } from 'react-native-modalize';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import { StackActions, NavigationActions, CommonActions  } from 'react-navigation';
 
 
 export default function HomeScreen({route, navigation}) {
+    const ssdata = route.params['sessiondata'];
 
-    const { sessiondata } = route.params;
-    const sdata = JSON.parse(sessiondata);
+    const parseddata = JSON.parse(ssdata);
+    
+    parseddata.map((item, value) => {
+        console.log(item);
+    });
 
-    const modalizeRef = useRef(null);
-    const modalizeRef2 = useRef(null);
 
-    const onOpenMemberCard = () => {
-        modalizeRef.current?.open();
-    };
-    const onOpenSideMenu = () => {
-        modalizeRef2.current?.open();
-    };
+    /*const [text, setText] = React.useState('asdasdasd');
+    const hasUnsavedChanges = Boolean(text);
+    React.useEffect(
+        () => {
+            navigation.reset({
+                index: 0,
+                routes: [{ name: 'HomeScreen' }],
+              });
+        }
+      );*/
+
+
+    
+
+
+    /*JSON.parse(ssdata, (key1, value1) => {
+        console.log("abc");
+        console.log(key1);
+        //sesdata[key1] = value1;
+    });*/
 
     const goToScreen = (x) => {
         /*if(x == "home") {
@@ -30,12 +49,27 @@ export default function HomeScreen({route, navigation}) {
         }*/
     }
 
-    var sesdata = [];
 
-    JSON.parse(sdata, (key1, value1) => {
-        sesdata[key1] = value1;
-    });
+    const modalizeRef = useRef(null);
+    const modalizeRef2 = useRef(null);
 
+    const onOpenMemberCard = () => {
+        modalizeRef.current?.open();
+    };
+
+    const onOpenSideMenu = () => {
+        modalizeRef2.current?.open();
+    };
+
+    const logout = async () => {
+        /*try {
+            await AsyncStorage.removeItem("@sessiondata");
+            navigation.navigate('LoginScreen');
+        }
+        catch(exception) {
+            console.log(exception);
+        }*/
+    }
 
     return (
         <View style={{flex: 1}}>
@@ -79,7 +113,7 @@ export default function HomeScreen({route, navigation}) {
                     <Svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <Path d="M10.5169 15.3165C10.1282 15.6964 9.50728 15.6964 9.11866 15.3165L8.73079 14.9372C8.32959 14.545 8.32959 13.8995 8.73079 13.5072L13.2526 9.08607L0.999999 9.08606C0.447714 9.08606 -1.26377e-06 8.63835 -1.21549e-06 8.08606L-1.17054e-06 7.57191C-1.12226e-06 7.01962 0.447715 6.57191 0.999999 6.57191L12.9028 6.57191L8.73079 2.4928C8.32959 2.10054 8.32959 1.45502 8.73079 1.06275L9.11866 0.683529C9.50728 0.303562 10.1282 0.303562 10.5169 0.683529L17.2687 7.28497C17.6699 7.67724 17.6699 8.32276 17.2687 8.71502L10.5169 15.3165Z" fill="white"/>
                     </Svg>
-                </TouchableOpacity>
+    </TouchableOpacity>
                 <View style={styles.homeSectionTitleArea}>
                     <Text style={styles.homeSectionTitle}>Your bookings</Text>
                     <TouchableOpacity style={styles.homeSectionTitleButton}>
@@ -210,7 +244,7 @@ export default function HomeScreen({route, navigation}) {
                 <Text>fitclub_name : {sesdata['fitclub_name']}</Text>
                 <Text>fitclub_feedback_email : {sesdata['fitclub_feedback_email']}</Text>
                 <Text>member_card : {sesdata['member_card']}</Text>
-    <Image style={{height: 200}} resizeMode="contain" source={{ uri: sesdata['member_card'] }} />*/}
+    <Image style={{height: 200}} resizeMode="contain" source={{ uri: sesdata['member_card'] }} /> */}
             </SafeAreaView> 
         </ScrollView>
         <View style={styles.navbar}>
@@ -247,7 +281,7 @@ export default function HomeScreen({route, navigation}) {
             </TouchableOpacity>
         </View>
         <Modalize adjustToContentHeight modalStyle={styles.membercardmodal} ref={modalizeRef}>
-            <Image style={{height: 260}} resizeMode="contain" source={{ uri: sesdata['member_card'] }} />
+            {/*<Image style={{height: 260}} resizeMode="contain" source={{ uri: sesdata['member_card'] }} />*/}
             <TouchableOpacity style={styles.modalButton}>
                 <Text style={{color: "#B4B4B4", fontSize: 16}}>Memberships</Text>
                 <Svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -274,7 +308,7 @@ export default function HomeScreen({route, navigation}) {
             <TouchableOpacity style={styles.menulink}><Text style={{fontSize:20, color: "#A0A0A0"}}>Legal</Text></TouchableOpacity>
             <View style={{height: 1, backgroundColor: "#E6E6E6", marginVertical: 10, marginBottom:20}}></View>
             <TouchableOpacity style={styles.menulink}><Text style={{fontSize:20, color: "#A0A0A0"}}>Settings</Text></TouchableOpacity>
-            <TouchableOpacity style={styles.menulink}><Text style={{fontSize:20, color: "#E57D6F"}}>Log out</Text></TouchableOpacity>
+            <TouchableOpacity onPress={logout.bind(this)} style={styles.menulink}><Text style={{fontSize:20, color: "#E57D6F"}}>Log out</Text></TouchableOpacity>
             <View style={{flexDirection: "row", marginVertical: 20}}>
                 <TouchableOpacity style={{marginRight:20}}>
                     <Svg width="24" height="24" viewBox="0 0 31 30" fill="none" xmlns="http://www.w3.org/2000/svg">
