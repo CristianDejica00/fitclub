@@ -12,12 +12,9 @@ import { StackActions, NavigationActions, CommonActions  } from 'react-navigatio
 
 export default function HomeScreen({route, navigation}) {
     const ssdata = route.params['sessiondata'];
-
+    const sesdata = [];
     const parseddata = JSON.parse(ssdata);
     
-    parseddata.map((item, value) => {
-        console.log(item);
-    });
 
 
     /*const [text, setText] = React.useState('asdasdasd');
@@ -35,11 +32,9 @@ export default function HomeScreen({route, navigation}) {
     
 
 
-    /*JSON.parse(ssdata, (key1, value1) => {
-        console.log("abc");
-        console.log(key1);
-        //sesdata[key1] = value1;
-    });*/
+    JSON.parse(parseddata, (key1, value1) => {
+        sesdata[key1] = value1;
+    });
 
     const goToScreen = (x) => {
         /*if(x == "home") {
@@ -62,13 +57,13 @@ export default function HomeScreen({route, navigation}) {
     };
 
     const logout = async () => {
-        /*try {
+        try {
             await AsyncStorage.removeItem("@sessiondata");
             navigation.navigate('LoginScreen');
         }
         catch(exception) {
             console.log(exception);
-        }*/
+        }
     }
 
     return (
@@ -281,7 +276,7 @@ export default function HomeScreen({route, navigation}) {
             </TouchableOpacity>
         </View>
         <Modalize adjustToContentHeight modalStyle={styles.membercardmodal} ref={modalizeRef}>
-            {/*<Image style={{height: 260}} resizeMode="contain" source={{ uri: sesdata['member_card'] }} />*/}
+            <Image style={{height: 260}} resizeMode="contain" source={{ uri: sesdata['member_card'] }} />
             <TouchableOpacity style={styles.modalButton}>
                 <Text style={{color: "#B4B4B4", fontSize: 16}}>Memberships</Text>
                 <Svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">

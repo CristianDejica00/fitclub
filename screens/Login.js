@@ -55,30 +55,24 @@ export default function LoginScreen({navigation}) {
 				} else {
 					const storeData = async (key, value) => {
 						try {
-              if(checked) {
-						    await AsyncStorage.setItem(key, value);
-              }
-              const jsonValue = JSON.stringify(result);
-              navigation.navigate('HomeScreen', { sessiondata: jsonValue });
+              await AsyncStorage.setItem(key, JSON.stringify(value));
 						} catch (error) {
 						  console.log(error);
 						}
 					};
-          const jsonValue = JSON.stringify(result);
-					storeData("@sessiondata", jsonValue);
+          if(checked) {
+            storeData("@sessiondata", result);
+          }
+          navigation.navigate('HomeScreen', { sessiondata: JSON.stringify(JSON.stringify(result)) });
 				}
 			})
-			.catch(error => console.log('error', error));
+			.catch(error => console.log('errors', error));
 		}
   }
 
-  if(!isLoggedin) {
     return (
       <View style={styles.loginScreen}>
           <StatusBar/>
-          {/*<Image
-            source={require('../assets/login_bg.jpg')} style={{position:"absolute"}}
-          />*/}
           <ImageBackground source={require('../assets/login_bg.jpg')} style={{width:"100%", height:"50%", position: "absolute"}} resizeMode="stretch"></ImageBackground>
           <SafeAreaView style={styles.safearea}>
             <View></View>
@@ -118,9 +112,6 @@ export default function LoginScreen({navigation}) {
           </SafeAreaView>
       </View>
     );
-  } else {
-    return (<View></View>);
-  }
   
 }
 
