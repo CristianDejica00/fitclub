@@ -9,7 +9,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Modalize } from 'react-native-modalize';
 
 
-export default function BookingsScreen({route, navigation}) {
+export default function ServicesScreen({route, navigation}) {
 
     const goToScreen = (x) => {
         if(x == "home") {
@@ -22,8 +22,6 @@ export default function BookingsScreen({route, navigation}) {
             navigation.navigate('MembershipsScreen');
         } else if(x == "checkins") {
             navigation.navigate('CheckinsScreen');
-        } else if(x == "newbooking") {
-            navigation.navigate('NewBookingsScreen');
         }
     }
 
@@ -33,78 +31,10 @@ export default function BookingsScreen({route, navigation}) {
             <StatusBar backgroundColor="#FFFFFF"/>
             <SafeAreaView style={styles.safearea}>
                 <View style={styles.homeHeader}>
-                    <Text style={{color:"#A0A0A0", fontSize:24, fontWeight: "bold"}}>Your bookings</Text>
+                    <Text style={{color:"#A0A0A0", fontSize:24, fontWeight: "bold"}}>Your services</Text>
                 </View>
-                
-                <View style={styles.bookingCard}>
-                    <View>
-                        <Text style={{fontSize: 16, color: "#5CBBBB", fontWeight: "bold"}}>Cardio</Text>
-                        <Text style={{color: "#696969"}}>Wednesday, 3 Dec 2021</Text>
-                    </View>
-                    <Text style={{fontSize: 18, fontWeight: "bold", color: "#282828"}}>8:00</Text>
-                </View>
-                <View style={styles.bookingCard}>
-                    <View>
-                        <Text style={{fontSize: 16, color: "#5CBBBB", fontWeight: "bold"}}>Strength</Text>
-                        <Text style={{color: "#696969"}}>Tuesday, 9 Dec 2021</Text>
-                    </View>
-                    <Text style={{fontSize: 18, fontWeight: "bold", color: "#282828"}}>10:00</Text>
-                </View>
-                <View style={styles.bookingCard}>
-                    <View>
-                        <Text style={{fontSize: 16, color: "#5CBBBB", fontWeight: "bold"}}>Resistance</Text>
-                        <Text style={{color: "#696969"}}>Thursday, 18 Dec 2021</Text>
-                    </View>
-                    <Text style={{fontSize: 18, fontWeight: "bold", color: "#282828"}}>9:30</Text>
-                </View>
-                <View style={styles.bookingCard}>
-                    <View>
-                        <Text style={{fontSize: 16, color: "#5CBBBB", fontWeight: "bold"}}>Strength</Text>
-                        <Text style={{color: "#696969"}}>Friday, 19 Dec 2021</Text>
-                    </View>
-                    <Text style={{fontSize: 18, fontWeight: "bold", color: "#282828"}}>14:00</Text>
-                </View>
-                <View style={styles.bookingCard}>
-                    <View>
-                        <Text style={{fontSize: 16, color: "#5CBBBB", fontWeight: "bold"}}>Cardio</Text>
-                        <Text style={{color: "#696969"}}>Wednesday, 3 Dec 2021</Text>
-                    </View>
-                    <Text style={{fontSize: 18, fontWeight: "bold", color: "#282828"}}>8:00</Text>
-                </View>
-                <View style={styles.bookingCard}>
-                    <View>
-                        <Text style={{fontSize: 16, color: "#5CBBBB", fontWeight: "bold"}}>Strength</Text>
-                        <Text style={{color: "#696969"}}>Tuesday, 9 Dec 2021</Text>
-                    </View>
-                    <Text style={{fontSize: 18, fontWeight: "bold", color: "#282828"}}>10:00</Text>
-                </View>
-                <View style={styles.bookingCard}>
-                    <View>
-                        <Text style={{fontSize: 16, color: "#5CBBBB", fontWeight: "bold"}}>Resistance</Text>
-                        <Text style={{color: "#696969"}}>Thursday, 18 Dec 2021</Text>
-                    </View>
-                    <Text style={{fontSize: 18, fontWeight: "bold", color: "#282828"}}>9:30</Text>
-                </View>
-                <View style={styles.bookingCard}>
-                    <View>
-                        <Text style={{fontSize: 16, color: "#5CBBBB", fontWeight: "bold"}}>Strength</Text>
-                        <Text style={{color: "#696969"}}>Friday, 19 Dec 2021</Text>
-                    </View>
-                    <Text style={{fontSize: 18, fontWeight: "bold", color: "#282828"}}>14:00</Text>
-                </View>
-                <View style={{height:100}}></View>
             </SafeAreaView> 
         </ScrollView>
-            <View style={{height:100, width: "100%", position:'absolute', bottom: 60}}>
-                <LinearGradient style={{ height: 100, width: "100%",  borderBottomWidth: 1, borderBottomColor: "#F0F0F0", justifyContent: "center", alignItems: "center" }} colors={['#FFFFFF00', '#FFFFFFCC', '#FFFFFF']}>
-                    <TouchableOpacity onPress={goToScreen.bind(this, 'newbooking')} style={{height:60, width: "60%", backgroundColor: "#5CBBBB", borderRadius: 100, flexDirection: "row", alignItems: "center", justifyContent: "center"}}>
-                        <Text style={{fontSize: 16, color: "white", marginRight: 10, fontWeight: "bold"}}>Book a class</Text>
-                        <Svg style={{marginTop:2}} width="16" height="14" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <Path d="M9.42034 13.3326C9.03314 13.7052 8.42064 13.7052 8.03344 13.3326L7.85926 13.1649C7.45053 12.7716 7.45053 12.1173 7.85926 11.7239L11.7801 7.95031L0.999998 7.95031C0.447713 7.95031 -1.81616e-06 7.50259 -1.76788e-06 6.95031L-1.75041e-06 6.75042C-1.70212e-06 6.19813 0.447714 5.75042 0.999998 5.75042L11.4692 5.75042L7.85926 2.27606C7.45053 1.88267 7.45053 1.22844 7.85926 0.835051L8.03344 0.66741C8.42064 0.294751 9.03315 0.294751 9.42034 0.667411L15.2514 6.27949C15.6601 6.67288 15.6601 7.32712 15.2514 7.72051L9.42034 13.3326Z" fill="white"/>
-                        </Svg>
-                    </TouchableOpacity>
-                </LinearGradient>
-            </View>
         <View style={styles.navbar}>
             <TouchableOpacity style={styles.navbarItem} onPress={goToScreen.bind(this, 'home')}>
                 <Svg width="28" height="26" viewBox="0 0 28 26" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -113,7 +43,7 @@ export default function BookingsScreen({route, navigation}) {
             </TouchableOpacity>
             <TouchableOpacity style={styles.navbarItem} onPress={goToScreen.bind(this, 'bookings')}>
                 <Svg width="26" height="28" viewBox="0 0 26 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <Path fill-rule="evenodd" clip-rule="evenodd" d="M23.1111 2.79999H21.6667V0H18.7778V2.79999H7.22222V0H4.33334V2.79999H2.88889C1.3 2.79999 0 4.06 0 5.59998V8.40625H26V5.59998C26 4.06 24.7 2.79999 23.1111 2.79999ZM26 11.1914H0V25.2C0 26.74 1.3 28 2.88889 28H23.1111C24.7 28 26 26.74 26 25.2V11.1914ZM19.4856 14.742L10.92 23.044L6.34113 18.606L7.87224 17.122L10.92 20.076L17.9545 13.258L19.4856 14.742Z" fill="#5CBBBB"/>
+                    <Path d="M23.1111 2.8H21.6667V0H18.7778V2.8H7.22222V0H4.33333V2.8H2.88889C1.3 2.8 0 4.06 0 5.6V25.2C0 26.74 1.3 28 2.88889 28H23.1111C24.7 28 26 26.74 26 25.2V5.6C26 4.06 24.7 2.8 23.1111 2.8ZM23.1111 25.2H2.88889V11.2H23.1111V25.2ZM2.88889 8.4V5.6H23.1111V8.4H2.88889ZM10.92 23.044L19.4856 14.742L17.9544 13.258L10.92 20.076L7.87222 17.122L6.34111 18.606L10.92 23.044Z" fill="#BEBEBE"/>
                 </Svg>
             </TouchableOpacity>
             <TouchableOpacity style={styles.navbarItem} onPress={goToScreen.bind(this, 'notifications')}>

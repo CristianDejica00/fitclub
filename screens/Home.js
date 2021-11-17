@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect, useRef } from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput, Icon, Touchable, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput, Icon, Touchable, ScrollView, Linking } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Svg, Rect, Path } from 'react-native-svg';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -11,39 +11,50 @@ import { StackActions, NavigationActions, CommonActions  } from 'react-navigatio
 
 
 export default function HomeScreen({route, navigation}) {
-    const ssdata = route.params['sessiondata'];
-    const sesdata = [];
-    const parseddata = JSON.parse(ssdata);
     
+    const [sesdata, setSesdata] = useState('');
 
-
-    /*const [text, setText] = React.useState('asdasdasd');
-    const hasUnsavedChanges = Boolean(text);
-    React.useEffect(
-        () => {
-            navigation.reset({
-                index: 0,
-                routes: [{ name: 'HomeScreen' }],
-              });
-        }
-      );*/
-
-
-    
-
-
-    JSON.parse(parseddata, (key1, value1) => {
-        sesdata[key1] = value1;
+    useEffect(() => {
+        const f = async () => {
+          try {
+            const data = await AsyncStorage.getItem("@sessiondata");
+              if (data !== null) {
+                setSesdata(data);
+              }
+            } catch (error) {
+            console.log(error);
+          }
+        };
+        f();
     });
 
-    const goToScreen = (x) => {
-        /*if(x == "home") {
-            navigation.navigate('HomeScreen', { sessiondata: JSON.stringify(sdata) });
-        } else if(x == "bookings") {
-            navigation.navigate('BookingsScreen', { sessiondata: JSON.stringify(sdata) });
-        }*/
-    }
 
+    const goToScreen = (x) => {
+        if(x == "home") {
+            navigation.navigate('HomeScreen');
+        } else if(x == "bookings") {
+            navigation.navigate('BookingsScreen');
+        } else if(x == "notifications") {
+            navigation.navigate('NotificationsScreen');
+        } else if(x == "memberships") {
+            navigation.navigate('MembershipsScreen');
+            modalizeRef.current?.close();
+        } else if(x == "checkins") {
+            navigation.navigate('CheckinsScreen');
+        } else if(x == "settings") {
+            navigation.navigate('SettingsScreen');
+            modalizeRef2.current?.close();
+        } else if(x == "services") {
+            navigation.navigate('ServicesScreen');
+            modalizeRef2.current?.close();
+        } else if(x == "vouchers") {
+            navigation.navigate('VouchersScreen');
+            modalizeRef2.current?.close();
+        } else if(x == "training") {
+            navigation.navigate('TrainingScreen');
+            modalizeRef2.current?.close();
+        }
+    }
 
     const modalizeRef = useRef(null);
     const modalizeRef2 = useRef(null);
@@ -58,7 +69,7 @@ export default function HomeScreen({route, navigation}) {
 
     const logout = async () => {
         try {
-            await AsyncStorage.removeItem("@sessiondata");
+            await AsyncStorage.removeItem("@isremembered");
             navigation.navigate('LoginScreen');
         }
         catch(exception) {
@@ -66,6 +77,7 @@ export default function HomeScreen({route, navigation}) {
         }
     }
 
+    if(sesdata) {
     return (
         <View style={{flex: 1}}>
         <ScrollView style={styles.homeScreen}>
@@ -80,9 +92,9 @@ export default function HomeScreen({route, navigation}) {
                         </Svg>
                     </TouchableOpacity>
                     <Svg width="116" height="22" viewBox="0 0 116 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <Path d="M16.2094 14.786L12.4509 18.4728C11.4357 19.4695 9.80406 19.456 8.80553 18.4425L8.62689 18.2616L6.88344 19.9706L7.15518 20.2445C9.04993 22.1589 12.1369 22.1847 14.0635 20.3023L17.9076 16.5326L16.2094 14.786ZM6.90109 16.4949L3.22805 12.7579C2.23707 11.741 2.2562 10.1149 3.27083 9.12148L3.38404 9.00836L1.66076 7.27433L1.45445 7.47538C-0.461987 9.36811 -0.487897 12.4518 1.39659 14.3764L5.15516 18.1988L6.90109 16.4949ZM14.4484 5.4699L18.1793 9.2597C19.1697 10.2733 19.1551 11.8955 18.1466 12.8911L17.9856 13.0495L19.6988 14.7885L19.9504 14.5372C21.8655 12.6439 21.8914 9.56133 20.0083 7.63623L16.1768 3.75852L14.4484 5.4699ZM5.14008 7.28439L8.9414 3.54989C9.95913 2.56162 11.585 2.58076 12.5792 3.59266L12.7 3.71327L14.4408 2.00185L14.232 1.78822C12.3398 -0.130672 9.25085 -0.161018 7.32122 1.72038L3.42933 5.54531L5.14008 7.28439ZM27.8047 11.8859C27.5531 13.522 26.8638 18.5556 26.8638 18.5556H29.6311L30.2978 13.8134C30.5494 12.0542 30.6425 8.71182 35.186 9.03853L35.5734 6.30429C29.6035 5.76648 28.099 9.888 27.8047 11.8859ZM75.8259 15.0801C76.5385 14.1925 76.9117 13.081 76.88 11.9437C76.88 9.84524 75.8482 8.64149 74.0473 8.64149C73.0635 8.64149 72.2305 9.06871 71.4987 9.95079C70.7664 10.8329 70.4193 11.8934 70.4193 13.2178C70.4193 15.1178 71.4434 16.3467 73.0258 16.3467C74.1047 16.3894 75.1412 15.9243 75.8259 15.0901V15.0801ZM73.9492 6.13591C75.2779 6.11374 76.5552 6.64873 77.4713 7.6111L77.6346 6.43497H80.2534L78.5352 18.5381H75.9138L76.0423 17.5731C75.0251 18.3694 73.7718 18.8052 72.4799 18.812C71.1538 18.8415 69.888 18.2593 69.0482 17.2338C68.1501 16.1607 67.7126 14.8438 67.7126 13.2128C67.6651 11.3831 68.3005 9.6013 69.496 8.21428C70.5856 6.88008 72.2254 6.11566 73.9492 6.13843V6.13591ZM110.211 16.3441C108.513 16.3441 107.328 14.9971 107.328 13.0771C107.289 11.9167 107.698 10.7857 108.47 9.91813C109.156 9.10085 110.17 8.63032 111.238 8.63392C112.496 8.63392 113.22 9.27476 113.963 10.3077L116 8.40274C114.936 6.8496 113.459 6.14092 111.288 6.14092C109.475 6.12067 107.735 6.85546 106.486 8.169C105.159 9.4803 104.431 11.2788 104.473 13.1425C104.473 14.8388 104.976 16.1883 106.005 17.269C107.019 18.2997 108.416 18.8624 109.862 18.8221C112.151 18.8221 114 17.9927 115.359 16.3542L113.663 14.5171C112.503 15.8264 111.53 16.3366 110.201 16.3366L110.211 16.3441ZM102.022 18.5531L103.728 6.44503H100.961L99.2553 18.5381L102.022 18.5531ZM102.77 1.19763C102.306 1.19287 101.859 1.37385 101.529 1.70026C101.205 2.01452 101.023 2.4476 101.026 2.89899C101.028 3.87057 101.817 4.65724 102.789 4.656C103.248 4.65545 103.689 4.47589 104.017 4.1556C104.346 3.82054 104.527 3.36815 104.521 2.89899C104.521 2.44802 104.34 2.0158 104.017 1.70026C103.688 1.37337 103.242 1.19228 102.777 1.19763H102.77ZM96.576 3.0423H93.8389L92.2989 13.924C92.0701 15.6329 92.2814 16.8317 92.9429 17.5881C93.5291 18.2566 94.4525 18.5934 95.7936 18.5934C96.3117 18.5934 96.8173 18.5758 97.3032 18.5456L97.64 16.1381H96.7671C95.9445 16.1381 95.5091 16.02 95.2576 15.7284C95.0061 15.4369 94.9157 14.8891 95.0438 13.8763L95.7456 8.91286H98.6589L98.9961 6.4601H96.0653L96.576 3.0423ZM89.006 9.92819L90.9355 8.11874C89.8613 6.79682 88.3466 6.12585 86.4347 6.12585C85.0687 6.12585 83.962 6.47268 83.0484 7.18637C82.1705 7.83013 81.6649 8.8633 81.6953 9.95079C81.6953 11.725 82.6812 12.9012 84.6287 13.444L86.4476 13.9466C87.3731 14.2282 87.8234 14.6251 87.8234 15.1555C87.8234 16.025 87.1139 16.4673 85.7127 16.4673C84.3999 16.4841 83.1615 15.8604 82.3946 14.7961L80.49 16.505C81.6524 18.043 83.2901 18.8221 85.3631 18.8221C88.5506 18.8221 90.528 17.3494 90.528 14.982C90.528 13.2229 89.4765 11.9663 87.5693 11.4386L85.4689 10.8807C84.7366 10.6771 84.3643 10.2951 84.3643 9.74469C84.3643 9.03853 85.1343 8.50577 86.1506 8.50577C87.26 8.50577 88.2159 8.99329 88.9958 9.95584L89.006 9.92819ZM65.4104 3.01465H62.6681L61.1337 13.8964C60.9049 15.6053 61.1136 16.804 61.7777 17.5605C62.3613 18.229 63.2873 18.5657 64.628 18.5657C65.1439 18.5657 65.6521 18.5481 66.1375 18.518L66.4696 16.1079H65.5968C64.7741 16.1079 64.3388 15.9898 64.0744 15.6983C63.8104 15.4068 63.7325 14.8589 63.8606 13.8461L64.5624 8.88273H67.4761L67.8129 6.42996H64.8898L65.4104 3.01465ZM55.662 6.12585C54.4622 6.09807 53.3036 6.56111 52.4544 7.40753L52.3635 7.49549L52.5246 6.42491H49.8128L48.1044 18.5381H50.872L51.8254 11.8306C52.1069 9.82011 53.2972 8.60879 55.0077 8.60879C56.2884 8.60879 57.1158 9.48591 57.1158 10.8404C57.1158 10.9309 57.1034 11.0691 57.0884 11.2425C57.0884 11.3179 57.0734 11.4009 57.0683 11.4939L56.0768 18.5305H58.8319C59.2175 15.736 59.4858 13.8092 59.6366 12.7504C59.7223 12.1372 59.7703 11.8005 59.7724 11.7778C59.8354 11.3669 59.868 10.952 59.8705 10.5364C59.8705 7.85739 58.2256 6.12589 55.6796 6.12589L55.662 6.12585ZM40.927 16.3617C42.4918 16.3617 43.6439 15.1755 43.9331 13.2656L44.8994 6.43497H47.6541L45.9457 18.5381H43.2416L43.3748 17.4675L43.2891 17.5555C42.4685 18.3816 41.3447 18.8356 40.1798 18.812C37.7395 18.812 36.1545 17.088 36.1545 14.4241C36.162 14.0179 36.1948 13.6125 36.2526 13.2103L37.2187 6.42491H39.9483L38.942 13.6652C38.9173 13.866 38.9088 14.0686 38.9169 14.2708C38.9169 15.5927 39.649 16.3517 40.9295 16.3517" fill="#007AFF"/>
+                        <Path d="M16.2094 14.786L12.4509 18.4728C11.4357 19.4695 9.80406 19.456 8.80553 18.4425L8.62689 18.2616L6.88344 19.9706L7.15518 20.2445C9.04993 22.1589 12.1369 22.1847 14.0635 20.3023L17.9076 16.5326L16.2094 14.786ZM6.90109 16.4949L3.22805 12.7579C2.23707 11.741 2.2562 10.1149 3.27083 9.12148L3.38404 9.00836L1.66076 7.27433L1.45445 7.47538C-0.461987 9.36811 -0.487897 12.4518 1.39659 14.3764L5.15516 18.1988L6.90109 16.4949ZM14.4484 5.4699L18.1793 9.2597C19.1697 10.2733 19.1551 11.8955 18.1466 12.8911L17.9856 13.0495L19.6988 14.7885L19.9504 14.5372C21.8655 12.6439 21.8914 9.56133 20.0083 7.63623L16.1768 3.75852L14.4484 5.4699ZM5.14008 7.28439L8.9414 3.54989C9.95913 2.56162 11.585 2.58076 12.5792 3.59266L12.7 3.71327L14.4408 2.00185L14.232 1.78822C12.3398 -0.130672 9.25085 -0.161018 7.32122 1.72038L3.42933 5.54531L5.14008 7.28439ZM27.8047 11.8859C27.5531 13.522 26.8638 18.5556 26.8638 18.5556H29.6311L30.2978 13.8134C30.5494 12.0542 30.6425 8.71182 35.186 9.03853L35.5734 6.30429C29.6035 5.76648 28.099 9.888 27.8047 11.8859ZM75.8259 15.0801C76.5385 14.1925 76.9117 13.081 76.88 11.9437C76.88 9.84524 75.8482 8.64149 74.0473 8.64149C73.0635 8.64149 72.2305 9.06871 71.4987 9.95079C70.7664 10.8329 70.4193 11.8934 70.4193 13.2178C70.4193 15.1178 71.4434 16.3467 73.0258 16.3467C74.1047 16.3894 75.1412 15.9243 75.8259 15.0901V15.0801ZM73.9492 6.13591C75.2779 6.11374 76.5552 6.64873 77.4713 7.6111L77.6346 6.43497H80.2534L78.5352 18.5381H75.9138L76.0423 17.5731C75.0251 18.3694 73.7718 18.8052 72.4799 18.812C71.1538 18.8415 69.888 18.2593 69.0482 17.2338C68.1501 16.1607 67.7126 14.8438 67.7126 13.2128C67.6651 11.3831 68.3005 9.6013 69.496 8.21428C70.5856 6.88008 72.2254 6.11566 73.9492 6.13843V6.13591ZM110.211 16.3441C108.513 16.3441 107.328 14.9971 107.328 13.0771C107.289 11.9167 107.698 10.7857 108.47 9.91813C109.156 9.10085 110.17 8.63032 111.238 8.63392C112.496 8.63392 113.22 9.27476 113.963 10.3077L116 8.40274C114.936 6.8496 113.459 6.14092 111.288 6.14092C109.475 6.12067 107.735 6.85546 106.486 8.169C105.159 9.4803 104.431 11.2788 104.473 13.1425C104.473 14.8388 104.976 16.1883 106.005 17.269C107.019 18.2997 108.416 18.8624 109.862 18.8221C112.151 18.8221 114 17.9927 115.359 16.3542L113.663 14.5171C112.503 15.8264 111.53 16.3366 110.201 16.3366L110.211 16.3441ZM102.022 18.5531L103.728 6.44503H100.961L99.2553 18.5381L102.022 18.5531ZM102.77 1.19763C102.306 1.19287 101.859 1.37385 101.529 1.70026C101.205 2.01452 101.023 2.4476 101.026 2.89899C101.028 3.87057 101.817 4.65724 102.789 4.656C103.248 4.65545 103.689 4.47589 104.017 4.1556C104.346 3.82054 104.527 3.36815 104.521 2.89899C104.521 2.44802 104.34 2.0158 104.017 1.70026C103.688 1.37337 103.242 1.19228 102.777 1.19763H102.77ZM96.576 3.0423H93.8389L92.2989 13.924C92.0701 15.6329 92.2814 16.8317 92.9429 17.5881C93.5291 18.2566 94.4525 18.5934 95.7936 18.5934C96.3117 18.5934 96.8173 18.5758 97.3032 18.5456L97.64 16.1381H96.7671C95.9445 16.1381 95.5091 16.02 95.2576 15.7284C95.0061 15.4369 94.9157 14.8891 95.0438 13.8763L95.7456 8.91286H98.6589L98.9961 6.4601H96.0653L96.576 3.0423ZM89.006 9.92819L90.9355 8.11874C89.8613 6.79682 88.3466 6.12585 86.4347 6.12585C85.0687 6.12585 83.962 6.47268 83.0484 7.18637C82.1705 7.83013 81.6649 8.8633 81.6953 9.95079C81.6953 11.725 82.6812 12.9012 84.6287 13.444L86.4476 13.9466C87.3731 14.2282 87.8234 14.6251 87.8234 15.1555C87.8234 16.025 87.1139 16.4673 85.7127 16.4673C84.3999 16.4841 83.1615 15.8604 82.3946 14.7961L80.49 16.505C81.6524 18.043 83.2901 18.8221 85.3631 18.8221C88.5506 18.8221 90.528 17.3494 90.528 14.982C90.528 13.2229 89.4765 11.9663 87.5693 11.4386L85.4689 10.8807C84.7366 10.6771 84.3643 10.2951 84.3643 9.74469C84.3643 9.03853 85.1343 8.50577 86.1506 8.50577C87.26 8.50577 88.2159 8.99329 88.9958 9.95584L89.006 9.92819ZM65.4104 3.01465H62.6681L61.1337 13.8964C60.9049 15.6053 61.1136 16.804 61.7777 17.5605C62.3613 18.229 63.2873 18.5657 64.628 18.5657C65.1439 18.5657 65.6521 18.5481 66.1375 18.518L66.4696 16.1079H65.5968C64.7741 16.1079 64.3388 15.9898 64.0744 15.6983C63.8104 15.4068 63.7325 14.8589 63.8606 13.8461L64.5624 8.88273H67.4761L67.8129 6.42996H64.8898L65.4104 3.01465ZM55.662 6.12585C54.4622 6.09807 53.3036 6.56111 52.4544 7.40753L52.3635 7.49549L52.5246 6.42491H49.8128L48.1044 18.5381H50.872L51.8254 11.8306C52.1069 9.82011 53.2972 8.60879 55.0077 8.60879C56.2884 8.60879 57.1158 9.48591 57.1158 10.8404C57.1158 10.9309 57.1034 11.0691 57.0884 11.2425C57.0884 11.3179 57.0734 11.4009 57.0683 11.4939L56.0768 18.5305H58.8319C59.2175 15.736 59.4858 13.8092 59.6366 12.7504C59.7223 12.1372 59.7703 11.8005 59.7724 11.7778C59.8354 11.3669 59.868 10.952 59.8705 10.5364C59.8705 7.85739 58.2256 6.12589 55.6796 6.12589L55.662 6.12585ZM40.927 16.3617C42.4918 16.3617 43.6439 15.1755 43.9331 13.2656L44.8994 6.43497H47.6541L45.9457 18.5381H43.2416L43.3748 17.4675L43.2891 17.5555C42.4685 18.3816 41.3447 18.8356 40.1798 18.812C37.7395 18.812 36.1545 17.088 36.1545 14.4241C36.162 14.0179 36.1948 13.6125 36.2526 13.2103L37.2187 6.42491H39.9483L38.942 13.6652C38.9173 13.866 38.9088 14.0686 38.9169 14.2708C38.9169 15.5927 39.649 16.3517 40.9295 16.3517" fill="#5CBBBB"/>
                     </Svg>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={goToScreen.bind(this, 'settings')}>
                         <Svg width="29" height="30" viewBox="0 0 29 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <Path d="M25.587 16.4687C25.6491 16 25.6801 15.5156 25.6801 15C25.6801 14.5 25.6491 14 25.5714 13.5312L28.7236 11.0625C29.0031 10.8437 29.0807 10.4219 28.9099 10.1094L25.9286 4.92188C25.7422 4.57812 25.354 4.46875 25.0124 4.57812L21.3012 6.07812C20.5248 5.48437 19.7019 4.98437 18.7857 4.60937L18.2267 0.640625C18.1646 0.265625 17.854 0 17.4814 0H11.5186C11.146 0 10.8509 0.265625 10.7888 0.640625L10.2298 4.60937C9.31366 4.98437 8.47516 5.5 7.71429 6.07812L4.00311 4.57812C3.66149 4.45312 3.27329 4.57812 3.08696 4.92188L0.121119 10.1094C-0.0652168 10.4375 -0.00310523 10.8437 0.307454 11.0625L3.45963 13.5312C3.38199 14 3.31988 14.5156 3.31988 15C3.31988 15.4844 3.35093 16 3.42857 16.4687L0.276398 18.9375C-0.0031052 19.1562 -0.0807448 19.5781 0.0900627 19.8906L3.07143 25.0781C3.25776 25.4219 3.64596 25.5312 3.98758 25.4219L7.69876 23.9219C8.47515 24.5156 9.29814 25.0156 10.2143 25.3906L10.7733 29.3594C10.8509 29.7344 11.146 30 11.5186 30H17.4814C17.854 30 18.1646 29.7344 18.2112 29.3594L18.7702 25.3906C19.6863 25.0156 20.5248 24.5156 21.2857 23.9219L24.9969 25.4219C25.3385 25.5469 25.7267 25.4219 25.913 25.0781L28.8944 19.8906C29.0807 19.5469 29.0031 19.1562 28.7081 18.9375L25.587 16.4687ZM14.5 20.625C11.4255 20.625 8.90994 18.0938 8.90994 15C8.90994 11.9062 11.4255 9.375 14.5 9.375C17.5745 9.375 20.0901 11.9062 20.0901 15C20.0901 18.0938 17.5745 20.625 14.5 20.625Z" fill="#AAAAAA"/>
                         </Svg>
@@ -111,40 +123,40 @@ export default function HomeScreen({route, navigation}) {
     </TouchableOpacity>
                 <View style={styles.homeSectionTitleArea}>
                     <Text style={styles.homeSectionTitle}>Your bookings</Text>
-                    <TouchableOpacity style={styles.homeSectionTitleButton}>
-                        <Text style={{color:"white"}}>+ Book class</Text>
+                    <TouchableOpacity style={styles.homeSectionTitleButton} onPress={goToScreen.bind(this, 'bookings')}>
+                        <Text style={{color:"white"}}>View all</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.bookingCard}>
                     <View>
-                        <Text style={{fontSize: 16, color: "#007AFF", fontWeight: "bold"}}>Cardio</Text>
+                        <Text style={{fontSize: 16, color: "#5CBBBB", fontWeight: "bold"}}>Cardio</Text>
                         <Text style={{color: "#696969"}}>Wednesday, 3 Dec 2021</Text>
                     </View>
                     <Text style={{fontSize: 18, fontWeight: "bold", color: "#282828"}}>8:00</Text>
                 </View>
                 <View style={styles.bookingCard}>
                     <View>
-                        <Text style={{fontSize: 16, color: "#007AFF", fontWeight: "bold"}}>Strength</Text>
+                        <Text style={{fontSize: 16, color: "#5CBBBB", fontWeight: "bold"}}>Strength</Text>
                         <Text style={{color: "#696969"}}>Tuesday, 9 Dec 2021</Text>
                     </View>
                     <Text style={{fontSize: 18, fontWeight: "bold", color: "#282828"}}>10:00</Text>
                 </View>
                 <View style={styles.bookingCard}>
                     <View>
-                        <Text style={{fontSize: 16, color: "#007AFF", fontWeight: "bold"}}>Resistance</Text>
+                        <Text style={{fontSize: 16, color: "#5CBBBB", fontWeight: "bold"}}>Resistance</Text>
                         <Text style={{color: "#696969"}}>Thursday, 18 Dec 2021</Text>
                     </View>
                     <Text style={{fontSize: 18, fontWeight: "bold", color: "#282828"}}>9:30</Text>
                 </View>
                 <View style={styles.bookingCard}>
                     <View>
-                        <Text style={{fontSize: 16, color: "#007AFF", fontWeight: "bold"}}>Strength</Text>
+                        <Text style={{fontSize: 16, color: "#5CBBBB", fontWeight: "bold"}}>Strength</Text>
                         <Text style={{color: "#696969"}}>Friday, 19 Dec 2021</Text>
                     </View>
                     <Text style={{fontSize: 18, fontWeight: "bold", color: "#282828"}}>14:00</Text>
                 </View>
-                <TouchableOpacity style={styles.voucherCTA}>
-                    <LinearGradient style={styles.voucherCTAGradient} colors={['#007AFF', '#7CB8F9']}>
+                <TouchableOpacity style={styles.voucherCTA} onPress={goToScreen.bind(this, 'vouchers')}>
+                    <LinearGradient start={{x: 0, y: 0}} end={{x: 1, y: 1}} style={styles.voucherCTAGradient} colors={['#007AFF', '#7CB8F9']}>
                         <View>
                             <View style={{flexDirection:"row", alignItems: "center"}}>
                                 <Text style={{color: "white", fontSize:18, fontWeight: "bold"}}>Vouchers</Text>
@@ -186,8 +198,8 @@ export default function HomeScreen({route, navigation}) {
                         </Svg>
                     </LinearGradient>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.trainingCTA}>
-                    <LinearGradient style={styles.trainingCTAGradient} colors={['#FFC700', '#F9F47C']}>
+                <TouchableOpacity style={styles.trainingCTA} onPress={goToScreen.bind(this, 'training')}>
+                    <LinearGradient start={{x: 0, y: 0}} end={{x: 1, y: 1}} style={styles.trainingCTAGradient} colors={['#FFC700', '#F9F47C']}>
                         <View>
                             <View style={{flexDirection:"row", alignItems: "center"}}>
                                 <Text style={{color: "#323232", fontSize:18, fontWeight: "bold"}}>Online training</Text>
@@ -243,22 +255,22 @@ export default function HomeScreen({route, navigation}) {
             </SafeAreaView> 
         </ScrollView>
         <View style={styles.navbar}>
-            <TouchableOpacity style={styles.navbarItem} onPress={goToScreen('home')}>
+            <TouchableOpacity style={styles.navbarItem} onPress={goToScreen.bind(this, 'home')}>
                 <Svg width="28" height="26" viewBox="0 0 28 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <Path d="M0 13.7333L14 0L28 13.7333L26.46 15.7522L24.1818 14.0144V26H15.5V17.5H12.5V26H3.81818V14.0144L1.54 15.765L0 13.7333Z" fill="#007AFF"/>
+                    <Path d="M0 13.7333L14 0L28 13.7333L26.46 15.7522L24.1818 14.0144V26H15.5V17.5H12.5V26H3.81818V14.0144L1.54 15.765L0 13.7333Z" fill="#5CBBBB"/>
                 </Svg>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.navbarItem} onPress={goToScreen('bookings')}>
+            <TouchableOpacity style={styles.navbarItem} onPress={goToScreen.bind(this, 'bookings')}>
                 <Svg width="26" height="28" viewBox="0 0 26 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <Path d="M23.1111 2.8H21.6667V0H18.7778V2.8H7.22222V0H4.33333V2.8H2.88889C1.3 2.8 0 4.06 0 5.6V25.2C0 26.74 1.3 28 2.88889 28H23.1111C24.7 28 26 26.74 26 25.2V5.6C26 4.06 24.7 2.8 23.1111 2.8ZM23.1111 25.2H2.88889V11.2H23.1111V25.2ZM2.88889 8.4V5.6H23.1111V8.4H2.88889ZM10.92 23.044L19.4856 14.742L17.9544 13.258L10.92 20.076L7.87222 17.122L6.34111 18.606L10.92 23.044Z" fill="#BEBEBE"/>
                 </Svg>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.navbarItem}>
+            <TouchableOpacity style={styles.navbarItem} onPress={goToScreen.bind(this, 'notifications')}>
                 <Svg width="24" height="28" viewBox="0 0 24 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <Path d="M12 28C13.65 28 15 26.7077 15 25.1282H9C9 26.7077 10.35 28 12 28ZM21 19.3846V12.2051C21 7.79692 18.555 4.10667 14.25 3.13026V2.15385C14.25 0.962051 13.245 0 12 0C10.755 0 9.75 0.962051 9.75 2.15385V3.13026C5.46 4.10667 3 7.78256 3 12.2051V19.3846L0 22.2564V23.6923H24V22.2564L21 19.3846ZM18 20.8205H6V12.2051C6 8.6441 8.265 5.74359 12 5.74359C15.735 5.74359 18 8.6441 18 12.2051V20.8205Z" fill="#BEBEBE"/>
                 </Svg>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.navbarItem}>
+            <TouchableOpacity style={styles.navbarItem} onPress={goToScreen.bind(this, 'memberships')}>
                 <Svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <Path d="M21 14H16V16H21V14Z" fill="#BEBEBE"/>
                     <Path d="M21 18H16V20H21V18Z" fill="#BEBEBE"/>
@@ -267,7 +279,7 @@ export default function HomeScreen({route, navigation}) {
                     <Path fill-rule="evenodd" clip-rule="evenodd" d="M18.2 7H25.2C26.74 7 28 8.26001 28 9.80005V25.2C28 26.74 26.74 28 25.2 28H2.8C1.25999 28 0 26.74 0 25.2V9.80005C0 8.26001 1.25999 7 2.8 7H9.8V2.80005C9.8 1.26001 11.06 0 12.6 0H15.4C16.94 0 18.2 1.26001 18.2 2.80005V7ZM12.6 2.80005V9.80005H15.4V2.80005H12.6ZM2.8 25.2H25.2V9.80005H18.2C18.2 11.34 16.94 12.6 15.4 12.6H12.6C11.06 12.6 9.8 11.34 9.8 9.80005H2.8V25.2Z" fill="#BEBEBE"/>
                 </Svg>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.navbarItem}>
+            <TouchableOpacity style={styles.navbarItem} onPress={goToScreen.bind(this, 'checkins')}>
                 <Svg width="20" height="28" viewBox="0 0 20 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <Path d="M7.14286 9.8C7.14286 8.26003 8.42857 7 10 7C10.7578 7 11.4845 7.29497 12.0203 7.82014C12.5561 8.34514 12.8571 9.05745 12.8571 9.8C12.8571 10.5426 12.5561 11.2549 12.0203 11.7799C11.4845 12.305 10.7578 12.6 10 12.6C8.42857 12.6 7.14286 11.34 7.14286 9.8Z" fill="#BEBEBE"/>
                     <Path fill-rule="evenodd" clip-rule="evenodd" d="M0 10.01C0 3.44395 5.32857 0 10 0C14.6714 0 20 3.44395 20 10.01C20 14.378 16.6714 18.9841 10 23.8C3.32857 18.9841 0 14.378 0 10.01ZM17.1429 10.01C17.1429 4.76003 12.7571 2.8 10 2.8C7.24286 2.8 2.85714 4.76003 2.85714 10.01C2.85714 13.0201 5.31429 16.5479 10 20.258C14.6857 16.5479 17.1429 13.0341 17.1429 10.01Z" fill="#BEBEBE"/>
@@ -276,8 +288,8 @@ export default function HomeScreen({route, navigation}) {
             </TouchableOpacity>
         </View>
         <Modalize adjustToContentHeight modalStyle={styles.membercardmodal} ref={modalizeRef}>
-            <Image style={{height: 260}} resizeMode="contain" source={{ uri: sesdata['member_card'] }} />
-            <TouchableOpacity style={styles.modalButton}>
+            <Image style={{height: 260}} resizeMode="contain" source={{ uri: JSON.parse(sesdata)['member_card'] }} />
+            <TouchableOpacity onPress={goToScreen.bind(this, 'memberships')} style={styles.modalButton}>
                 <Text style={{color: "#B4B4B4", fontSize: 16}}>Memberships</Text>
                 <Svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <Path d="M10.5169 15.3165C10.1282 15.6964 9.50728 15.6964 9.11866 15.3165L8.73079 14.9372C8.32959 14.545 8.32959 13.8995 8.73079 13.5072L13.2526 9.08607L0.999999 9.08606C0.447714 9.08606 -1.26377e-06 8.63835 -1.21549e-06 8.08606L-1.17054e-06 7.57191C-1.12226e-06 7.01962 0.447715 6.57191 0.999999 6.57191L12.9028 6.57191L8.73079 2.4928C8.32959 2.10054 8.32959 1.45502 8.73079 1.06275L9.11866 0.683529C9.50728 0.303562 10.1282 0.303562 10.5169 0.683529L17.2687 7.28497C17.6699 7.67724 17.6699 8.32276 17.2687 8.71502L10.5169 15.3165Z" fill="#B4B4B4"/>
@@ -291,18 +303,15 @@ export default function HomeScreen({route, navigation}) {
             </TouchableOpacity>
         </Modalize>
         <Modalize adjustToContentHeight modalStyle={styles.menumodal} ref={modalizeRef2}>
-            <TouchableOpacity style={styles.menulink}><Text style={{fontSize:20, color: "#007AFF", fontWeight: "bold"}}>Home</Text></TouchableOpacity>
-            <TouchableOpacity style={styles.menulink}><Text style={{fontSize:20, color: "#A0A0A0"}}>Bookings</Text></TouchableOpacity>
-            <TouchableOpacity style={styles.menulink}><Text style={{fontSize:20, color: "#A0A0A0"}}>Memberships</Text></TouchableOpacity>
-            <TouchableOpacity style={styles.menulink}><Text style={{fontSize:20, color: "#A0A0A0"}}>Services</Text></TouchableOpacity>
-            <TouchableOpacity style={styles.menulink}><Text style={{fontSize:20, color: "#A0A0A0"}}>Vouchers</Text></TouchableOpacity>
+            <TouchableOpacity onPress={goToScreen.bind(this, 'services')} style={styles.menulink}><Text style={{fontSize:20, color: "#A0A0A0"}}>Services</Text></TouchableOpacity>
+            <TouchableOpacity onPress={goToScreen.bind(this, 'vouchers')} style={styles.menulink}><Text style={{fontSize:20, color: "#A0A0A0"}}>Vouchers</Text></TouchableOpacity>
             <TouchableOpacity style={styles.menulink}><Text style={{fontSize:20, color: "#A0A0A0"}}>Our Locations</Text></TouchableOpacity>
             <View style={{height: 1, backgroundColor: "#E6E6E6", marginVertical: 10, marginBottom:20}}></View>
             <TouchableOpacity style={styles.menulink}><Text style={{fontSize:20, color: "#A0A0A0"}}>Club Rules</Text></TouchableOpacity>
             <TouchableOpacity style={styles.menulink}><Text style={{fontSize:20, color: "#A0A0A0"}}>Terms & Conditions</Text></TouchableOpacity>
             <TouchableOpacity style={styles.menulink}><Text style={{fontSize:20, color: "#A0A0A0"}}>Legal</Text></TouchableOpacity>
             <View style={{height: 1, backgroundColor: "#E6E6E6", marginVertical: 10, marginBottom:20}}></View>
-            <TouchableOpacity style={styles.menulink}><Text style={{fontSize:20, color: "#A0A0A0"}}>Settings</Text></TouchableOpacity>
+            <TouchableOpacity onPress={goToScreen.bind(this, 'settings')} style={styles.menulink}><Text style={{fontSize:20, color: "#A0A0A0"}}>Settings</Text></TouchableOpacity>
             <TouchableOpacity onPress={logout.bind(this)} style={styles.menulink}><Text style={{fontSize:20, color: "#E57D6F"}}>Log out</Text></TouchableOpacity>
             <View style={{flexDirection: "row", marginVertical: 20}}>
                 <TouchableOpacity style={{marginRight:20}}>
@@ -324,6 +333,12 @@ export default function HomeScreen({route, navigation}) {
         </Modalize>
     </View>
     );
+
+} else {
+    return(
+        <View><Text>Loading</Text></View>
+    );
+}
     
     
 
@@ -356,7 +371,7 @@ const styles = StyleSheet.create({
     },
     seemembercardbutton: {
         height: 60,
-        backgroundColor: "#007AFF",
+        backgroundColor: "#5CBBBB",
         borderRadius: 10,
         alignItems: "center",
         flexDirection: "row",
@@ -377,7 +392,7 @@ const styles = StyleSheet.create({
     },
     homeSectionTitleButton: {
         height:30,
-        backgroundColor: "#007AFF",
+        backgroundColor: "#5CBBBB",
         justifyContent: "center",
         paddingHorizontal: 20,
         borderRadius: 100
