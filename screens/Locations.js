@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect, useRef } from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput, Icon, Touchable, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput, Linking, ImageBackground, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Svg, Rect, Path } from 'react-native-svg';
 import Checkbox from 'react-native-modest-checkbox';
@@ -25,6 +25,12 @@ export default function LocationsScreen({route, navigation}) {
         }
     }
 
+    const modalizeRef = useRef(null);
+
+    const openClubDetails = (id) => {
+        modalizeRef.current?.open();
+    }
+
     return (
         <View style={{flex: 1}}>
         <ScrollView style={styles.homeScreen}>
@@ -33,6 +39,82 @@ export default function LocationsScreen({route, navigation}) {
                 <View style={styles.homeHeader}>
                     <Text style={{color:"#A0A0A0", fontSize:24, fontWeight: "bold"}}>Our locations</Text>
                 </View>
+
+                
+                <TouchableOpacity onPress={openClubDetails.bind(this, '1')} style={styles.bookingCard}>
+                    <View style={{flex: 1}}>
+                        <View style={{flexDirection: "row"}}>
+                            <Text style={{fontSize: 16, color: "#007AFF", fontWeight: "bold"}}>Fitclub Factory Pipera</Text>
+                        </View>
+                        <Text style={{color: "#757575", fontSize: 12}}>Open</Text>
+                    </View>
+                    <ImageBackground source={{ uri: "https://images.unsplash.com/photo-1540496905036-5937c10647cc?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80" }} style={{ width:90, height:60 }} resizeMode="cover"></ImageBackground>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={openClubDetails.bind(this, '1')} style={styles.bookingCard}>
+                    <View style={{flex: 1}}>
+                        <View style={{flexDirection: "row"}}>
+                            <Text style={{fontSize: 16, color: "#007AFF", fontWeight: "bold"}}>Fitclub Factory Nord</Text>
+                        </View>
+                        <Text style={{color: "#757575", fontSize: 12}}>Open</Text>
+                    </View>
+                    <ImageBackground source={{ uri: "https://images.unsplash.com/photo-1540496905036-5937c10647cc?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80" }} style={{ width:90, height:60 }} resizeMode="cover"></ImageBackground>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={openClubDetails.bind(this, '1')} style={styles.bookingCard}>
+                    <View style={{flex: 1}}>
+                        <View style={{flexDirection: "row"}}>
+                            <Text style={{fontSize: 16, color: "#007AFF", fontWeight: "bold"}}>Fitclub Factory Victoriei</Text>
+                        </View>
+                        <Text style={{color: "#757575", fontSize: 12}}>Open</Text>
+                    </View>
+                    <ImageBackground source={{ uri: "https://images.unsplash.com/photo-1540496905036-5937c10647cc?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80" }} style={{ width:90, height:60 }} resizeMode="cover"></ImageBackground>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={openClubDetails.bind(this, '1')} style={styles.bookingCard}>
+                    <View style={{flex: 1}}>
+                        <View style={{flexDirection: "row"}}>
+                            <Text style={{fontSize: 16, color: "#007AFF", fontWeight: "bold"}}>Fitclub Factory Militari</Text>
+                        </View>
+                        <Text style={{color: "#E57D6F", fontSize: 12}}>Closed</Text>
+                    </View>
+                    <ImageBackground source={{ uri: "https://images.unsplash.com/photo-1540496905036-5937c10647cc?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80" }} style={{ width:90, height:60 }} resizeMode="cover"></ImageBackground>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={openClubDetails.bind(this, '1')} style={styles.bookingCard}>
+                    <View style={{flex: 1}}>
+                        <View style={{flexDirection: "row"}}>
+                            <Text style={{fontSize: 16, color: "#007AFF", fontWeight: "bold"}}>Fitclub Factory Afi Park</Text>
+                        </View>
+                        <Text style={{color: "#E57D6F", fontSize: 12}}>Closed</Text>
+                    </View>
+                    <ImageBackground source={{ uri: "https://images.unsplash.com/photo-1540496905036-5937c10647cc?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80" }} style={{ width:90, height:60 }} resizeMode="cover"></ImageBackground>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={openClubDetails.bind(this, '1')} style={styles.bookingCard}>
+                    <View style={{flex: 1}}>
+                        <View style={{flexDirection: "row"}}>
+                            <Text style={{fontSize: 16, color: "#007AFF", fontWeight: "bold"}}>Fitclub Factory Promenada</Text>
+                        </View>
+                        <Text style={{color: "#E57D6F", fontSize: 12}}>Closed</Text>
+                    </View>
+                    <ImageBackground source={{ uri: "https://images.unsplash.com/photo-1540496905036-5937c10647cc?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80" }} style={{ width:90, height:60 }} resizeMode="cover"></ImageBackground>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={openClubDetails.bind(this, '1')} style={styles.bookingCard}>
+                    <View style={{flex: 1}}>
+                        <View style={{flexDirection: "row"}}>
+                            <Text style={{fontSize: 16, color: "#007AFF", fontWeight: "bold"}}>Fitclub Factory Iancu Nicolae</Text>
+                        </View>
+                        <Text style={{color: "#E57D6F", fontSize: 12}}>Closed</Text>
+                    </View>
+                    <ImageBackground source={{ uri: "https://images.unsplash.com/photo-1540496905036-5937c10647cc?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80" }} style={{ width:90, height:60 }} resizeMode="cover"></ImageBackground>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={openClubDetails.bind(this, '1')} style={styles.bookingCard}>
+                    <View style={{flex: 1}}>
+                        <View style={{flexDirection: "row"}}>
+                            <Text style={{fontSize: 16, color: "#007AFF", fontWeight: "bold"}}>Fitclub Factory Pipera</Text>
+                        </View>
+                        <Text style={{color: "#E57D6F", fontSize: 12}}>Closed</Text>
+                    </View>
+                    <ImageBackground source={{ uri: "https://images.unsplash.com/photo-1540496905036-5937c10647cc?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80" }} style={{ width:90, height:60 }} resizeMode="cover"></ImageBackground>
+                </TouchableOpacity>
+
+                <View style={{height:40}}></View>
             </SafeAreaView> 
         </ScrollView>
         <View style={styles.navbar}>
@@ -68,6 +150,45 @@ export default function LocationsScreen({route, navigation}) {
                 </Svg>
             </TouchableOpacity>
         </View>
+
+        
+        <Modalize adjustToContentHeight modalStyle={{ backgroundColor: "transparent" }} ref={modalizeRef}>
+            <View style={{overflow:"hidden", borderTopEndRadius:20, borderTopStartRadius: 20 }}>
+                <ImageBackground source={{ uri: "https://images.unsplash.com/photo-1540496905036-5937c10647cc?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80" }} style={{ width:"100%", height:260 }} resizeMode="cover">
+                    <View style={{flex:1}}></View>
+                    <LinearGradient style={{height:60}} colors={['#00000000', '#000000']} >
+                        <View style={{flex:1}}></View>
+                        <View style={{height:20, backgroundColor: "white", borderTopEndRadius:20, borderTopStartRadius: 20}}></View>
+                    </LinearGradient>
+                </ImageBackground>
+            </View>
+            <View style={{paddingHorizontal:20, backgroundColor: "white" }}>
+                <View style={{flexDirection:"row", alignItems: "center", borderBottomColor: "#E6E6E6", borderBottomWidth: 1, paddingBottom:20 }}>
+                    <Text style={{fontSize:20, color: "black", flex:1}}>Fitclub Factory Pipera</Text>
+                    <TouchableOpacity onPress={Linking.openURL(`tel:${"0727155898"}`)} style={{marginLeft:10}}>
+                        <Svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <Path fill-rule="evenodd" clip-rule="evenodd" d="M40 20C40 31.0457 31.0459 40 20 40C8.9541 40 0 31.0457 0 20C0 8.95432 8.9541 0 20 0C31.0459 0 40 8.95432 40 20ZM29.2733 10.9613L25.2108 10.0239C24.7694 9.9223 24.3163 10.1528 24.1366 10.5668L22.2616 14.9417C22.0976 15.3245 22.2069 15.7737 22.5312 16.0355L24.8983 17.9729C23.4921 20.9689 21.0351 23.4611 17.977 24.8947L16.0395 22.5275C15.7738 22.2033 15.3285 22.0939 14.9457 22.258L10.5707 24.1329C10.1527 24.3165 9.92227 24.7697 10.0238 25.211L10.9613 29.2735C11.059 29.6953 11.434 30 11.8754 30C21.8788 30 29.9999 21.8947 29.9999 11.8754C29.9999 11.4379 29.6991 11.059 29.2733 10.9613Z" fill="#007AFF"/>
+                        </Svg>
+                    </TouchableOpacity>
+                </View>
+                <View style={{paddingBottom:20, borderBottomColor: "#E6E6E6", borderBottomWidth: 1}}>
+                    <View style={{flexDirection: "row", justifyContent: "space-between", alignItems:"center", marginTop:20}}>
+                        <Text style={{color: "#A0A0A0", fontSize: 16}}>Mon - Fri</Text>
+                        <Text style={{color: "#757575", fontSize: 16}}>09:00 - 21:00</Text>
+                    </View>
+                    <View style={{flexDirection: "row", justifyContent: "space-between", alignItems:"center", marginTop:20}}>
+                        <Text style={{color: "#A0A0A0", fontSize: 16}}>Saturday</Text>
+                        <Text style={{color: "#757575", fontSize: 16}}>09:00 - 21:00</Text>
+                    </View>
+                    <View style={{flexDirection: "row", justifyContent: "space-between", alignItems:"center", marginTop:20}}>
+                        <Text style={{color: "#A0A0A0", fontSize: 16}}>Sunday</Text>
+                        <Text style={{color: "#EA978C", fontSize: 16}}>Closed</Text>
+                    </View>
+                </View>
+                <Text style={{marginVertical:20, color: "#757575", fontSize: 16}}>Bd. Dimitrie Pompeiu, 9-9A, Bucharest, Building 1, 1st Floor</Text>
+                
+            </View>
+        </Modalize>
         
     </View>
     );
@@ -106,7 +227,6 @@ const styles = StyleSheet.create({
         color: "#A0A0A0"
     },
     bookingCard: {
-        height: 80,
         width: "100%",
         backgroundColor: "white",
         elevation: 10,
@@ -115,7 +235,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
-        paddingHorizontal: 20
+        padding: 10
     },
     navbar: {
         height: 60,

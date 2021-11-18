@@ -53,6 +53,15 @@ export default function HomeScreen({route, navigation}) {
         } else if(x == "training") {
             navigation.navigate('TrainingScreen');
             modalizeRef2.current?.close();
+        } else if(x == "locations") {
+            navigation.navigate('LocationsScreen');
+            modalizeRef2.current?.close();
+        } else if(x == "clubrules") {
+            navigation.navigate('ClubRulesScreen');
+            modalizeRef2.current?.close();
+        } else if(x == "terms") {
+            navigation.navigate('TermsScreen');
+            modalizeRef2.current?.close();
         }
     }
 
@@ -305,11 +314,10 @@ export default function HomeScreen({route, navigation}) {
         <Modalize adjustToContentHeight modalStyle={styles.menumodal} ref={modalizeRef2}>
             <TouchableOpacity onPress={goToScreen.bind(this, 'services')} style={styles.menulink}><Text style={{fontSize:20, color: "#A0A0A0"}}>Services</Text></TouchableOpacity>
             <TouchableOpacity onPress={goToScreen.bind(this, 'vouchers')} style={styles.menulink}><Text style={{fontSize:20, color: "#A0A0A0"}}>Vouchers</Text></TouchableOpacity>
-            <TouchableOpacity style={styles.menulink}><Text style={{fontSize:20, color: "#A0A0A0"}}>Our Locations</Text></TouchableOpacity>
+            <TouchableOpacity onPress={goToScreen.bind(this, 'locations')} style={styles.menulink}><Text style={{fontSize:20, color: "#A0A0A0"}}>Our Locations</Text></TouchableOpacity>
             <View style={{height: 1, backgroundColor: "#E6E6E6", marginVertical: 10, marginBottom:20}}></View>
-            <TouchableOpacity style={styles.menulink}><Text style={{fontSize:20, color: "#A0A0A0"}}>Club Rules</Text></TouchableOpacity>
-            <TouchableOpacity style={styles.menulink}><Text style={{fontSize:20, color: "#A0A0A0"}}>Terms & Conditions</Text></TouchableOpacity>
-            <TouchableOpacity style={styles.menulink}><Text style={{fontSize:20, color: "#A0A0A0"}}>Legal</Text></TouchableOpacity>
+            <TouchableOpacity onPress={goToScreen.bind(this, 'clubrules')} style={styles.menulink}><Text style={{fontSize:20, color: "#A0A0A0"}}>Club Rules</Text></TouchableOpacity>
+            <TouchableOpacity onPress={goToScreen.bind(this, 'terms')} style={styles.menulink}><Text style={{fontSize:20, color: "#A0A0A0"}}>Terms & Conditions</Text></TouchableOpacity>
             <View style={{height: 1, backgroundColor: "#E6E6E6", marginVertical: 10, marginBottom:20}}></View>
             <TouchableOpacity onPress={goToScreen.bind(this, 'settings')} style={styles.menulink}><Text style={{fontSize:20, color: "#A0A0A0"}}>Settings</Text></TouchableOpacity>
             <TouchableOpacity onPress={logout.bind(this)} style={styles.menulink}><Text style={{fontSize:20, color: "#E57D6F"}}>Log out</Text></TouchableOpacity>

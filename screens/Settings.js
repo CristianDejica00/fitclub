@@ -22,6 +22,8 @@ export default function SettingsScreen({route, navigation}) {
             navigation.navigate('MembershipsScreen');
         } else if(x == "checkins") {
             navigation.navigate('CheckinsScreen');
+        } else if(x == "changepassword") {
+            navigation.navigate('ChangePasswordScreen');
         }
     }
 
@@ -53,7 +55,7 @@ export default function SettingsScreen({route, navigation}) {
                 </View>
                 <View style={{ flexDirection: "row", justifyContent: "space-between", borderBottomWidth: 1, borderBottomColor: "#E6E6E6", paddingVertical: 20 }}>
                     <Text style={{color: "#B3B3B3", fontSize: 16}}>Password</Text>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={goToScreen.bind(this, "changepassword")}>
                         <Text style={{color: "#5CBBBB", fontSize: 16, fontWeight: "bold"}}>Change password</Text>
                     </TouchableOpacity>
                 </View>

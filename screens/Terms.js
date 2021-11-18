@@ -9,7 +9,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Modalize } from 'react-native-modalize';
 
 
-export default function ClubRulesScreen({route, navigation}) {
+export default function TermsScreen({route, navigation}) {
 
     const goToScreen = (x) => {
         if(x == "home") {
@@ -36,10 +36,10 @@ export default function ClubRulesScreen({route, navigation}) {
                             <Path d="M12.0208 0.707105C12.4114 0.316582 13.0445 0.316582 13.435 0.707106L14.8493 2.12132C15.2398 2.51184 15.2398 3.14501 14.8493 3.53553L7.3848 11H27C27.5523 11 28 11.4477 28 12V14C28 14.5523 27.5523 15 27 15H7.92896L14.8493 21.9203C15.2398 22.3108 15.2398 22.944 14.8493 23.3345L13.435 24.7487C13.0445 25.1393 12.4114 25.1393 12.0208 24.7487L0.707108 13.435C0.316583 13.0445 0.316584 12.4113 0.707109 12.0208L12.0208 0.707105Z" fill="#B3B3B3"/>
                         </Svg>
                     </TouchableOpacity>
-                    <Text style={{color:"#A0A0A0", fontSize:24, fontWeight: "bold"}}>Club rules</Text>
+                    <Text style={{color:"#A0A0A0", fontSize:24, fontWeight: "bold"}}>Terms & Conditions</Text>
                 </View>
                 
-                <Text>Club rules here...</Text>
+                <Text>Terms & Conditions here...</Text>
 
             </SafeAreaView> 
         </ScrollView>

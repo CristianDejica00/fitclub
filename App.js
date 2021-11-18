@@ -13,6 +13,8 @@ import TrainingScreen from './screens/Training';
 import LocationsScreen from './screens/Locations';
 import ClubRulesScreen from './screens/ClubRules';
 import NewBookingsScreen from './screens/NewBooking';
+import ChangePasswordScreen from './screens/ChangePassword';
+import TermsScreen from './screens/Terms';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -36,6 +38,8 @@ export default function App() {
         <Stack.Screen name="LocationsScreen" component={LocationsScreen} />
         <Stack.Screen name="ClubRulesScreen" component={ClubRulesScreen} />
         <Stack.Screen name="NewBookingsScreen" component={NewBookingsScreen} />
+        <Stack.Screen name="ChangePasswordScreen" component={ChangePasswordScreen} />
+        <Stack.Screen name="TermsScreen" component={TermsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
