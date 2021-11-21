@@ -62,6 +62,9 @@ export default function HomeScreen({route, navigation}) {
         } else if(x == "terms") {
             navigation.navigate('TermsScreen');
             modalizeRef2.current?.close();
+        } else if(x == "newbookings") {
+            navigation.navigate('NewBookingsScreen');
+            modalizeRef2.current?.close();
         }
     }
 
@@ -129,41 +132,56 @@ export default function HomeScreen({route, navigation}) {
                     <Svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <Path d="M10.5169 15.3165C10.1282 15.6964 9.50728 15.6964 9.11866 15.3165L8.73079 14.9372C8.32959 14.545 8.32959 13.8995 8.73079 13.5072L13.2526 9.08607L0.999999 9.08606C0.447714 9.08606 -1.26377e-06 8.63835 -1.21549e-06 8.08606L-1.17054e-06 7.57191C-1.12226e-06 7.01962 0.447715 6.57191 0.999999 6.57191L12.9028 6.57191L8.73079 2.4928C8.32959 2.10054 8.32959 1.45502 8.73079 1.06275L9.11866 0.683529C9.50728 0.303562 10.1282 0.303562 10.5169 0.683529L17.2687 7.28497C17.6699 7.67724 17.6699 8.32276 17.2687 8.71502L10.5169 15.3165Z" fill="white"/>
                     </Svg>
-    </TouchableOpacity>
+                </TouchableOpacity>
                 <View style={styles.homeSectionTitleArea}>
-                    <Text style={styles.homeSectionTitle}>Your bookings</Text>
-                    <TouchableOpacity style={styles.homeSectionTitleButton} onPress={goToScreen.bind(this, 'bookings')}>
-                        <Text style={{color:"white"}}>View all</Text>
+                    <Text style={styles.homeSectionTitle}>Available classes</Text>
+                </View>
+                <View style={styles.bookingCard}>
+                    <View>
+                        <View style={{flexDirection: "row"}}>
+                            <Text style={{fontSize: 16, color: "#5CBBBB", fontWeight: "bold"}}>Cardio</Text>
+                            <Text style={{fontSize: 16, color: "#A0A0A0", marginLeft: 10}}>(8 available)</Text>
+                        </View>
+                        <Text style={{color: "#696969"}}>3 Dec 2021, 8:00</Text>
+                    </View>
+                    <TouchableOpacity style={{backgroundColor: "#5CBBBB", height:40, paddingHorizontal:30, justifyContent: "center", borderRadius: 100}}>
+                        <Text style={{color: "white"}}>Book</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.bookingCard}>
                     <View>
-                        <Text style={{fontSize: 16, color: "#5CBBBB", fontWeight: "bold"}}>Cardio</Text>
-                        <Text style={{color: "#696969"}}>Wednesday, 3 Dec 2021</Text>
+                        <View style={{flexDirection: "row"}}>
+                            <Text style={{fontSize: 16, color: "#5CBBBB", fontWeight: "bold"}}>Cardio</Text>
+                            <Text style={{fontSize: 16, color: "#A0A0A0", marginLeft: 10}}>(8 available)</Text>
+                        </View>
+                        <Text style={{color: "#696969"}}>3 Dec 2021, 8:00</Text>
                     </View>
-                    <Text style={{fontSize: 18, fontWeight: "bold", color: "#282828"}}>8:00</Text>
+                    <TouchableOpacity style={{backgroundColor: "#5CBBBB", height:40, paddingHorizontal:30, justifyContent: "center", borderRadius: 100}}>
+                        <Text style={{color: "white"}}>Book</Text>
+                    </TouchableOpacity>
                 </View>
                 <View style={styles.bookingCard}>
                     <View>
-                        <Text style={{fontSize: 16, color: "#5CBBBB", fontWeight: "bold"}}>Strength</Text>
-                        <Text style={{color: "#696969"}}>Tuesday, 9 Dec 2021</Text>
+                        <View style={{flexDirection: "row"}}>
+                            <Text style={{fontSize: 16, color: "#5CBBBB", fontWeight: "bold"}}>Cardio</Text>
+                            <Text style={{fontSize: 16, color: "#A0A0A0", marginLeft: 10}}>(8 available)</Text>
+                        </View>
+                        <Text style={{color: "#696969"}}>3 Dec 2021, 8:00</Text>
                     </View>
-                    <Text style={{fontSize: 18, fontWeight: "bold", color: "#282828"}}>10:00</Text>
+                    <TouchableOpacity style={{backgroundColor: "#5CBBBB", height:40, paddingHorizontal:30, justifyContent: "center", borderRadius: 100}}>
+                        <Text style={{color: "white"}}>Book</Text>
+                    </TouchableOpacity>
                 </View>
-                <View style={styles.bookingCard}>
-                    <View>
-                        <Text style={{fontSize: 16, color: "#5CBBBB", fontWeight: "bold"}}>Resistance</Text>
-                        <Text style={{color: "#696969"}}>Thursday, 18 Dec 2021</Text>
+
+                <TouchableOpacity style={styles.newbookingbutton} onPress={goToScreen.bind(this, 'newbookings')}>
+                    <View style={{flexDirection: "row", alignItems: "center"}}>
+                        <Text style={{color:"white", fontSize:16}}>See more classes</Text>
                     </View>
-                    <Text style={{fontSize: 18, fontWeight: "bold", color: "#282828"}}>9:30</Text>
-                </View>
-                <View style={styles.bookingCard}>
-                    <View>
-                        <Text style={{fontSize: 16, color: "#5CBBBB", fontWeight: "bold"}}>Strength</Text>
-                        <Text style={{color: "#696969"}}>Friday, 19 Dec 2021</Text>
-                    </View>
-                    <Text style={{fontSize: 18, fontWeight: "bold", color: "#282828"}}>14:00</Text>
-                </View>
+                </TouchableOpacity>
+                
+                <Image style={{width: "100%", marginTop: 20}} resizeMode="contain" source={require('../assets/adexample.png')} />
+
+
                 <TouchableOpacity style={styles.voucherCTA} onPress={goToScreen.bind(this, 'vouchers')}>
                     <LinearGradient start={{x: 0, y: 0}} end={{x: 1, y: 1}} style={styles.voucherCTAGradient} colors={['#007AFF', '#7CB8F9']}>
                         <View>
@@ -242,7 +260,6 @@ export default function HomeScreen({route, navigation}) {
                     </LinearGradient>
                 </TouchableOpacity>
 
-                <Image style={{width: "100%", marginTop: 20}} resizeMode="contain" source={require('../assets/adexample.png')} />
                 
                 <View style={{height:40}}></View>
 
@@ -288,31 +305,32 @@ export default function HomeScreen({route, navigation}) {
                     <Path fill-rule="evenodd" clip-rule="evenodd" d="M18.2 7H25.2C26.74 7 28 8.26001 28 9.80005V25.2C28 26.74 26.74 28 25.2 28H2.8C1.25999 28 0 26.74 0 25.2V9.80005C0 8.26001 1.25999 7 2.8 7H9.8V2.80005C9.8 1.26001 11.06 0 12.6 0H15.4C16.94 0 18.2 1.26001 18.2 2.80005V7ZM12.6 2.80005V9.80005H15.4V2.80005H12.6ZM2.8 25.2H25.2V9.80005H18.2C18.2 11.34 16.94 12.6 15.4 12.6H12.6C11.06 12.6 9.8 11.34 9.8 9.80005H2.8V25.2Z" fill="#BEBEBE"/>
                 </Svg>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.navbarItem} onPress={goToScreen.bind(this, 'checkins')}>
-                <Svg width="20" height="28" viewBox="0 0 20 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <Path d="M7.14286 9.8C7.14286 8.26003 8.42857 7 10 7C10.7578 7 11.4845 7.29497 12.0203 7.82014C12.5561 8.34514 12.8571 9.05745 12.8571 9.8C12.8571 10.5426 12.5561 11.2549 12.0203 11.7799C11.4845 12.305 10.7578 12.6 10 12.6C8.42857 12.6 7.14286 11.34 7.14286 9.8Z" fill="#BEBEBE"/>
-                    <Path fill-rule="evenodd" clip-rule="evenodd" d="M0 10.01C0 3.44395 5.32857 0 10 0C14.6714 0 20 3.44395 20 10.01C20 14.378 16.6714 18.9841 10 23.8C3.32857 18.9841 0 14.378 0 10.01ZM17.1429 10.01C17.1429 4.76003 12.7571 2.8 10 2.8C7.24286 2.8 2.85714 4.76003 2.85714 10.01C2.85714 13.0201 5.31429 16.5479 10 20.258C14.6857 16.5479 17.1429 13.0341 17.1429 10.01Z" fill="#BEBEBE"/>
-                    <Path d="M20 28V25.2H0V28H20Z" fill="#BEBEBE"/>
+            <TouchableOpacity style={styles.navbarItem} onPress={goToScreen.bind(this, 'services')}>
+                <Svg width="26" height="28" viewBox="0 0 26 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <Path d="M8 0C7.44772 0 7 0.447754 7 1V27C7 27.5522 7.44772 28 8 28H11C11.5523 28 12 27.5522 12 27V1C12 0.447754 11.5523 0 11 0H8Z" fill="#BEBEBE"/>
+                    <Path d="M1 16C0.447723 16 0 16.4478 0 17V27C0 27.5522 0.447723 28 1 28H4C4.55228 28 5 27.5522 5 27V17C5 16.4478 4.55228 16 4 16H1Z" fill="#BEBEBE"/>
+                    <Path d="M14 10C14 9.44775 14.4477 9 15 9H18C18.5523 9 19 9.44775 19 10V27C19 27.5522 18.5523 28 18 28H15C14.4477 28 14 27.5522 14 27V10Z" fill="#BEBEBE"/>
+                    <Path d="M22 16C21.4477 16 21 16.4478 21 17V27C21 27.5522 21.4477 28 22 28H25C25.5523 28 26 27.5522 26 27V17C26 16.4478 25.5523 16 25 16H22Z" fill="#BEBEBE"/>
                 </Svg>
             </TouchableOpacity>
         </View>
         <Modalize adjustToContentHeight modalStyle={styles.membercardmodal} ref={modalizeRef}>
             <Image style={{height: 260}} resizeMode="contain" source={{ uri: JSON.parse(sesdata)['member_card'] }} />
             <TouchableOpacity onPress={goToScreen.bind(this, 'memberships')} style={styles.modalButton}>
-                <Text style={{color: "#B4B4B4", fontSize: 16}}>Memberships</Text>
+                <Text style={{color: "#FFFFFF", fontSize: 16}}>Memberships</Text>
                 <Svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <Path d="M10.5169 15.3165C10.1282 15.6964 9.50728 15.6964 9.11866 15.3165L8.73079 14.9372C8.32959 14.545 8.32959 13.8995 8.73079 13.5072L13.2526 9.08607L0.999999 9.08606C0.447714 9.08606 -1.26377e-06 8.63835 -1.21549e-06 8.08606L-1.17054e-06 7.57191C-1.12226e-06 7.01962 0.447715 6.57191 0.999999 6.57191L12.9028 6.57191L8.73079 2.4928C8.32959 2.10054 8.32959 1.45502 8.73079 1.06275L9.11866 0.683529C9.50728 0.303562 10.1282 0.303562 10.5169 0.683529L17.2687 7.28497C17.6699 7.67724 17.6699 8.32276 17.2687 8.71502L10.5169 15.3165Z" fill="#B4B4B4"/>
+                    <Path d="M10.5169 15.3165C10.1282 15.6964 9.50728 15.6964 9.11866 15.3165L8.73079 14.9372C8.32959 14.545 8.32959 13.8995 8.73079 13.5072L13.2526 9.08607L0.999999 9.08606C0.447714 9.08606 -1.26377e-06 8.63835 -1.21549e-06 8.08606L-1.17054e-06 7.57191C-1.12226e-06 7.01962 0.447715 6.57191 0.999999 6.57191L12.9028 6.57191L8.73079 2.4928C8.32959 2.10054 8.32959 1.45502 8.73079 1.06275L9.11866 0.683529C9.50728 0.303562 10.1282 0.303562 10.5169 0.683529L17.2687 7.28497C17.6699 7.67724 17.6699 8.32276 17.2687 8.71502L10.5169 15.3165Z" fill="#FFFFFF"/>
                 </Svg>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.modalButton2}>
-                <Text style={{color: "#B4B4B4", fontSize: 16}}>Services</Text>
+            <TouchableOpacity onPress={goToScreen.bind(this, 'services')} style={styles.modalButton2}>
+                <Text style={{color: "#FFFFFF", fontSize: 16}}>Services</Text>
                 <Svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <Path d="M10.5169 15.3165C10.1282 15.6964 9.50728 15.6964 9.11866 15.3165L8.73079 14.9372C8.32959 14.545 8.32959 13.8995 8.73079 13.5072L13.2526 9.08607L0.999999 9.08606C0.447714 9.08606 -1.26377e-06 8.63835 -1.21549e-06 8.08606L-1.17054e-06 7.57191C-1.12226e-06 7.01962 0.447715 6.57191 0.999999 6.57191L12.9028 6.57191L8.73079 2.4928C8.32959 2.10054 8.32959 1.45502 8.73079 1.06275L9.11866 0.683529C9.50728 0.303562 10.1282 0.303562 10.5169 0.683529L17.2687 7.28497C17.6699 7.67724 17.6699 8.32276 17.2687 8.71502L10.5169 15.3165Z" fill="#B4B4B4"/>
+                    <Path d="M10.5169 15.3165C10.1282 15.6964 9.50728 15.6964 9.11866 15.3165L8.73079 14.9372C8.32959 14.545 8.32959 13.8995 8.73079 13.5072L13.2526 9.08607L0.999999 9.08606C0.447714 9.08606 -1.26377e-06 8.63835 -1.21549e-06 8.08606L-1.17054e-06 7.57191C-1.12226e-06 7.01962 0.447715 6.57191 0.999999 6.57191L12.9028 6.57191L8.73079 2.4928C8.32959 2.10054 8.32959 1.45502 8.73079 1.06275L9.11866 0.683529C9.50728 0.303562 10.1282 0.303562 10.5169 0.683529L17.2687 7.28497C17.6699 7.67724 17.6699 8.32276 17.2687 8.71502L10.5169 15.3165Z" fill="#FFFFFF"/>
                 </Svg>
             </TouchableOpacity>
         </Modalize>
         <Modalize adjustToContentHeight modalStyle={styles.menumodal} ref={modalizeRef2}>
-            <TouchableOpacity onPress={goToScreen.bind(this, 'services')} style={styles.menulink}><Text style={{fontSize:20, color: "#A0A0A0"}}>Services</Text></TouchableOpacity>
+            <TouchableOpacity onPress={goToScreen.bind(this, 'checkins')} style={styles.menulink}><Text style={{fontSize:20, color: "#A0A0A0"}}>Check-ins</Text></TouchableOpacity>
             <TouchableOpacity onPress={goToScreen.bind(this, 'vouchers')} style={styles.menulink}><Text style={{fontSize:20, color: "#A0A0A0"}}>Vouchers</Text></TouchableOpacity>
             <TouchableOpacity onPress={goToScreen.bind(this, 'locations')} style={styles.menulink}><Text style={{fontSize:20, color: "#A0A0A0"}}>Our Locations</Text></TouchableOpacity>
             <View style={{height: 1, backgroundColor: "#E6E6E6", marginVertical: 10, marginBottom:20}}></View>
@@ -385,6 +403,18 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
         paddingHorizontal: 20
+    },
+    newbookingbutton: {
+        height: 50,
+        backgroundColor: "#5CBBBB",
+        borderRadius: 10,
+        alignItems: "center",
+        flexDirection: "row",
+        justifyContent: "center",
+        paddingHorizontal: 20,
+        marginTop: 10,
+        width:"100%",
+        alignSelf: "center"
     },
     homeSectionTitleArea: {
         flexDirection: "row",
@@ -463,9 +493,8 @@ const styles = StyleSheet.create({
         flexDirection: "row", 
         justifyContent: "space-between",
         alignItems: "center",
-        borderRadius: 100,
-        borderWidth: 2,
-        borderColor: "#F0F0F0",
+        borderRadius: 10,
+        backgroundColor: "#5CBBBB",
         height: 60,
         paddingHorizontal: 20
     },
@@ -473,12 +502,12 @@ const styles = StyleSheet.create({
         flexDirection: "row", 
         justifyContent: "space-between",
         alignItems: "center",
-        borderRadius: 100,
-        borderWidth: 2,
-        borderColor: "#F0F0F0",
+        borderRadius: 10,
+        backgroundColor: "#5CBBBB",
         height: 60,
         marginVertical:10,
-        paddingHorizontal: 20
+        paddingHorizontal: 20,
+        marginBottom:20
     },
     menulink: {
         height:30,

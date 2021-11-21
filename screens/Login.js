@@ -153,7 +153,8 @@ const styles = StyleSheet.create({
     fontSize: 14,
     borderWidth: 2,
     borderColor: "#EBEBEB",
-    marginBottom: 10
+    marginBottom: 10,
+    backgroundColor: "#FFFFFF"
   },
   remembermewrapper: {
     flexDirection: "row"

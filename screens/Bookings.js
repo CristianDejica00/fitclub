@@ -20,8 +20,8 @@ export default function BookingsScreen({route, navigation}) {
             navigation.navigate('NotificationsScreen');
         } else if(x == "memberships") {
             navigation.navigate('MembershipsScreen');
-        } else if(x == "checkins") {
-            navigation.navigate('CheckinsScreen');
+        } else if(x == "services") {
+            navigation.navigate('ServicesScreen');
         } else if(x == "newbooking") {
             navigation.navigate('NewBookingsScreen');
         }
@@ -92,19 +92,9 @@ export default function BookingsScreen({route, navigation}) {
                     </View>
                     <Text style={{fontSize: 18, fontWeight: "bold", color: "#282828"}}>14:00</Text>
                 </View>
-                <View style={{height:100}}></View>
+                <View style={{height:40}}></View>
             </SafeAreaView> 
         </ScrollView>
-            <View style={{height:100, width: "100%", position:'absolute', bottom: 60}}>
-                <LinearGradient style={{ height: 100, width: "100%",  borderBottomWidth: 1, borderBottomColor: "#F0F0F0", justifyContent: "center", alignItems: "center" }} colors={['#FFFFFF00', '#FFFFFFCC', '#FFFFFF']}>
-                    <TouchableOpacity onPress={goToScreen.bind(this, 'newbooking')} style={{height:60, width: "60%", backgroundColor: "#5CBBBB", borderRadius: 100, flexDirection: "row", alignItems: "center", justifyContent: "center"}}>
-                        <Text style={{fontSize: 16, color: "white", marginRight: 10, fontWeight: "bold"}}>Book a class</Text>
-                        <Svg style={{marginTop:2}} width="16" height="14" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <Path d="M9.42034 13.3326C9.03314 13.7052 8.42064 13.7052 8.03344 13.3326L7.85926 13.1649C7.45053 12.7716 7.45053 12.1173 7.85926 11.7239L11.7801 7.95031L0.999998 7.95031C0.447713 7.95031 -1.81616e-06 7.50259 -1.76788e-06 6.95031L-1.75041e-06 6.75042C-1.70212e-06 6.19813 0.447714 5.75042 0.999998 5.75042L11.4692 5.75042L7.85926 2.27606C7.45053 1.88267 7.45053 1.22844 7.85926 0.835051L8.03344 0.66741C8.42064 0.294751 9.03315 0.294751 9.42034 0.667411L15.2514 6.27949C15.6601 6.67288 15.6601 7.32712 15.2514 7.72051L9.42034 13.3326Z" fill="white"/>
-                        </Svg>
-                    </TouchableOpacity>
-                </LinearGradient>
-            </View>
         <View style={styles.navbar}>
             <TouchableOpacity style={styles.navbarItem} onPress={goToScreen.bind(this, 'home')}>
                 <Svg width="28" height="26" viewBox="0 0 28 26" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -130,11 +120,12 @@ export default function BookingsScreen({route, navigation}) {
                     <Path fill-rule="evenodd" clip-rule="evenodd" d="M18.2 7H25.2C26.74 7 28 8.26001 28 9.80005V25.2C28 26.74 26.74 28 25.2 28H2.8C1.25999 28 0 26.74 0 25.2V9.80005C0 8.26001 1.25999 7 2.8 7H9.8V2.80005C9.8 1.26001 11.06 0 12.6 0H15.4C16.94 0 18.2 1.26001 18.2 2.80005V7ZM12.6 2.80005V9.80005H15.4V2.80005H12.6ZM2.8 25.2H25.2V9.80005H18.2C18.2 11.34 16.94 12.6 15.4 12.6H12.6C11.06 12.6 9.8 11.34 9.8 9.80005H2.8V25.2Z" fill="#BEBEBE"/>
                 </Svg>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.navbarItem} onPress={goToScreen.bind(this, 'checkins')}>
-                <Svg width="20" height="28" viewBox="0 0 20 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <Path d="M7.14286 9.8C7.14286 8.26003 8.42857 7 10 7C10.7578 7 11.4845 7.29497 12.0203 7.82014C12.5561 8.34514 12.8571 9.05745 12.8571 9.8C12.8571 10.5426 12.5561 11.2549 12.0203 11.7799C11.4845 12.305 10.7578 12.6 10 12.6C8.42857 12.6 7.14286 11.34 7.14286 9.8Z" fill="#BEBEBE"/>
-                    <Path fill-rule="evenodd" clip-rule="evenodd" d="M0 10.01C0 3.44395 5.32857 0 10 0C14.6714 0 20 3.44395 20 10.01C20 14.378 16.6714 18.9841 10 23.8C3.32857 18.9841 0 14.378 0 10.01ZM17.1429 10.01C17.1429 4.76003 12.7571 2.8 10 2.8C7.24286 2.8 2.85714 4.76003 2.85714 10.01C2.85714 13.0201 5.31429 16.5479 10 20.258C14.6857 16.5479 17.1429 13.0341 17.1429 10.01Z" fill="#BEBEBE"/>
-                    <Path d="M20 28V25.2H0V28H20Z" fill="#BEBEBE"/>
+            <TouchableOpacity style={styles.navbarItem} onPress={goToScreen.bind(this, 'services')}>
+                <Svg width="26" height="28" viewBox="0 0 26 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <Path d="M8 0C7.44772 0 7 0.447754 7 1V27C7 27.5522 7.44772 28 8 28H11C11.5523 28 12 27.5522 12 27V1C12 0.447754 11.5523 0 11 0H8Z" fill="#BEBEBE"/>
+                    <Path d="M1 16C0.447723 16 0 16.4478 0 17V27C0 27.5522 0.447723 28 1 28H4C4.55228 28 5 27.5522 5 27V17C5 16.4478 4.55228 16 4 16H1Z" fill="#BEBEBE"/>
+                    <Path d="M14 10C14 9.44775 14.4477 9 15 9H18C18.5523 9 19 9.44775 19 10V27C19 27.5522 18.5523 28 18 28H15C14.4477 28 14 27.5522 14 27V10Z" fill="#BEBEBE"/>
+                    <Path d="M22 16C21.4477 16 21 16.4478 21 17V27C21 27.5522 21.4477 28 22 28H25C25.5523 28 26 27.5522 26 27V17C26 16.4478 25.5523 16 25 16H22Z" fill="#BEBEBE"/>
                 </Svg>
             </TouchableOpacity>
         </View>

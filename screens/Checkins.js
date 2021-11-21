@@ -20,8 +20,8 @@ export default function CheckinsScreen({route, navigation}) {
             navigation.navigate('NotificationsScreen');
         } else if(x == "memberships") {
             navigation.navigate('MembershipsScreen');
-        } else if(x == "checkins") {
-            navigation.navigate('CheckinsScreen');
+        } else if(x == "services") {
+            navigation.navigate('ServicesScreen');
         }
     }
 
@@ -111,10 +111,12 @@ export default function CheckinsScreen({route, navigation}) {
                     <Path fill-rule="evenodd" clip-rule="evenodd" d="M18.2 7H25.2C26.74 7 28 8.26001 28 9.80005V25.2C28 26.74 26.74 28 25.2 28H2.8C1.25999 28 0 26.74 0 25.2V9.80005C0 8.26001 1.25999 7 2.8 7H9.8V2.80005C9.8 1.26001 11.06 0 12.6 0H15.4C16.94 0 18.2 1.26001 18.2 2.80005V7ZM12.6 2.80005V9.80005H15.4V2.80005H12.6ZM2.8 25.2H25.2V9.80005H18.2C18.2 11.34 16.94 12.6 15.4 12.6H12.6C11.06 12.6 9.8 11.34 9.8 9.80005H2.8V25.2Z" fill="#BEBEBE"/>
                 </Svg>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.navbarItem} onPress={goToScreen.bind(this, 'checkins')}>
-                <Svg width="20" height="28" viewBox="0 0 20 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <Path fill-rule="evenodd" clip-rule="evenodd" d="M0 10.01C0 3.44397 5.32858 0 10 0C14.6714 0 20 3.44397 20 10.01C20 14.3781 16.6714 18.9841 10 23.8C3.32858 18.9841 0 14.3781 0 10.01ZM9.99997 7C8.42853 7 7.14282 8.26001 7.14282 9.79999C7.14282 11.34 8.42853 12.6 9.99997 12.6C10.7577 12.6 11.4844 12.3051 12.0203 11.7798C12.5561 11.2549 12.8571 10.5425 12.8571 9.79999C12.8571 9.05743 12.5561 8.34515 12.0203 7.82013C11.4844 7.29498 10.7577 7 9.99997 7Z" fill="#5CBBBB"/>
-                    <Path d="M20 28V25.2H0V28H20Z" fill="#5CBBBB"/>
+            <TouchableOpacity style={styles.navbarItem} onPress={goToScreen.bind(this, 'services')}>
+                <Svg width="26" height="28" viewBox="0 0 26 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <Path d="M8 0C7.44772 0 7 0.447754 7 1V27C7 27.5522 7.44772 28 8 28H11C11.5523 28 12 27.5522 12 27V1C12 0.447754 11.5523 0 11 0H8Z" fill="#BEBEBE"/>
+                    <Path d="M1 16C0.447723 16 0 16.4478 0 17V27C0 27.5522 0.447723 28 1 28H4C4.55228 28 5 27.5522 5 27V17C5 16.4478 4.55228 16 4 16H1Z" fill="#BEBEBE"/>
+                    <Path d="M14 10C14 9.44775 14.4477 9 15 9H18C18.5523 9 19 9.44775 19 10V27C19 27.5522 18.5523 28 18 28H15C14.4477 28 14 27.5522 14 27V10Z" fill="#BEBEBE"/>
+                    <Path d="M22 16C21.4477 16 21 16.4478 21 17V27C21 27.5522 21.4477 28 22 28H25C25.5523 28 26 27.5522 26 27V17C26 16.4478 25.5523 16 25 16H22Z" fill="#BEBEBE"/>
                 </Svg>
             </TouchableOpacity>
         </View>

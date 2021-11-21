@@ -20,8 +20,8 @@ export default function MembershipsScreen({route, navigation}) {
             navigation.navigate('NotificationsScreen');
         } else if(x == "memberships") {
             navigation.navigate('MembershipsScreen');
-        } else if(x == "checkins") {
-            navigation.navigate('CheckinsScreen');
+        } else if(x == "services") {
+            navigation.navigate('ServicesScreen');
         }
     }
 
@@ -155,11 +155,12 @@ export default function MembershipsScreen({route, navigation}) {
                     <Path fill-rule="evenodd" clip-rule="evenodd" d="M25.2 7H18.2V2.80005C18.2 1.26001 16.94 0 15.4 0H12.6C11.06 0 9.79999 1.26001 9.79999 2.80005V7H2.79999C1.26001 7 0 8.26001 0 9.80005V25.2C0 26.74 1.26001 28 2.79999 28H25.2C26.74 28 28 26.74 28 25.2V9.80005C28 8.26001 26.74 7 25.2 7ZM12.6 9V2.80005H15.4V9H12.6ZM11 16C11 17.1046 10.1046 18 9 18C7.89545 18 7 17.1046 7 16C7 14.8954 7.89545 14 9 14C10.1046 14 11 14.8954 11 16ZM9 19C9.98666 19 10.92 19.2667 11.7733 19.7644C12.52 20.1912 13 21.1511 13 22.2356V23H5V22.2356C5 21.1511 5.47998 20.1912 6.22668 19.7644C7.08002 19.2667 8.01334 19 9 19ZM16 14H22V16H16V14ZM16 18H22V20H16V18Z" fill="#5CBBBB"/>
                 </Svg>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.navbarItem} onPress={goToScreen.bind(this, 'checkins')}>
-                <Svg width="20" height="28" viewBox="0 0 20 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <Path d="M7.14286 9.8C7.14286 8.26003 8.42857 7 10 7C10.7578 7 11.4845 7.29497 12.0203 7.82014C12.5561 8.34514 12.8571 9.05745 12.8571 9.8C12.8571 10.5426 12.5561 11.2549 12.0203 11.7799C11.4845 12.305 10.7578 12.6 10 12.6C8.42857 12.6 7.14286 11.34 7.14286 9.8Z" fill="#BEBEBE"/>
-                    <Path fill-rule="evenodd" clip-rule="evenodd" d="M0 10.01C0 3.44395 5.32857 0 10 0C14.6714 0 20 3.44395 20 10.01C20 14.378 16.6714 18.9841 10 23.8C3.32857 18.9841 0 14.378 0 10.01ZM17.1429 10.01C17.1429 4.76003 12.7571 2.8 10 2.8C7.24286 2.8 2.85714 4.76003 2.85714 10.01C2.85714 13.0201 5.31429 16.5479 10 20.258C14.6857 16.5479 17.1429 13.0341 17.1429 10.01Z" fill="#BEBEBE"/>
-                    <Path d="M20 28V25.2H0V28H20Z" fill="#BEBEBE"/>
+            <TouchableOpacity style={styles.navbarItem} onPress={goToScreen.bind(this, 'services')}>
+                <Svg width="26" height="28" viewBox="0 0 26 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <Path d="M8 0C7.44772 0 7 0.447754 7 1V27C7 27.5522 7.44772 28 8 28H11C11.5523 28 12 27.5522 12 27V1C12 0.447754 11.5523 0 11 0H8Z" fill="#BEBEBE"/>
+                    <Path d="M1 16C0.447723 16 0 16.4478 0 17V27C0 27.5522 0.447723 28 1 28H4C4.55228 28 5 27.5522 5 27V17C5 16.4478 4.55228 16 4 16H1Z" fill="#BEBEBE"/>
+                    <Path d="M14 10C14 9.44775 14.4477 9 15 9H18C18.5523 9 19 9.44775 19 10V27C19 27.5522 18.5523 28 18 28H15C14.4477 28 14 27.5522 14 27V10Z" fill="#BEBEBE"/>
+                    <Path d="M22 16C21.4477 16 21 16.4478 21 17V27C21 27.5522 21.4477 28 22 28H25C25.5523 28 26 27.5522 26 27V17C26 16.4478 25.5523 16 25 16H22Z" fill="#BEBEBE"/>
                 </Svg>
             </TouchableOpacity>
         </View>
