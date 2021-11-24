@@ -9,58 +9,54 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Modalize } from 'react-native-modalize';
 
 
-export default function ChangePasswordScreen({route, navigation}) {
+export default function ChangeEmailScreen({route, navigation}) {
 
     
     const [sesdata, setSesdata] = useState('');
     
-    const [old_password, setOldPassword] = useState('');
-    const [new_password, setNewPassword] = useState('');
-    const [new_password2, setNewPassword2] = useState('');
+    const [old_email, setOldEmail] = useState('');
 
     
-    const changePass = async () => {
-        if(new_password == new_password2) {
-            try {
-                const data = await AsyncStorage.getItem("@sessiondata");
-                if (data !== null) {
-                    setSesdata(data);
-                    
-                    let myTempToken = JSON.parse(data)['token_type'] + " " + JSON.parse(data)['access_token'];
-    
-                    var myHeaders = new Headers();
-                    myHeaders.append("Authorization", myTempToken);
+    const changeEmail = async () => {
+        try {
+            const data = await AsyncStorage.getItem("@sessiondata");
+            if (data !== null) {
+                setSesdata(data);
+                setOldEmail(JSON.parse(data)['email']);
                 
+                let myTempToken = JSON.parse(data)['token_type'] + " " + JSON.parse(data)['access_token'];
+
+                var myHeaders = new Headers();
+                myHeaders.append("Authorization", myTempToken);
+
+                var formdata = new FormData();
+                formdata.append("first_name", JSON.parse(data)['first_name']);
+                formdata.append("last_name", JSON.parse(data)['last_name']);
+                formdata.append("email", old_email);
+
+                var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: formdata,
+                redirect: 'follow'
+                };
+
+                fetch("http://ffapi.moncea.ro/public//api/users/"+ JSON.parse(data)['id'] +"/update", requestOptions)
+                .then(response => response.text())
+                .then(result => {
+                    if(JSON.parse(result)['success']) {
+                        navigation.navigate('SettingsScreen');
+                        console.log("It works");
+                    } else {
+                        console.log("Didn't work")
+                    }
+                })
+                .catch(error => console.log('error', error));
+
                 
-                    var formdata = new FormData();
-                    formdata.append("old_pin", old_password);
-                    formdata.append("new_pin", new_password);
-    
-                    var requestOptions = {
-                    method: 'POST',
-                    headers: myHeaders,
-                    body: formdata,
-                    redirect: 'follow'
-                    };
-    
-                    fetch("http://ffapi.moncea.ro/public//api/users/"+ JSON.parse(data)['id'] +"/change-pin", requestOptions)
-                    .then(response => response.text())
-                    .then(result => {
-                        if(JSON.parse(result)['success']) {
-                            navigation.navigate('SettingsScreen');
-                        } else {
-                            console.log("Wrong password")
-                        }
-                    })
-                    .catch(error => console.log('error', error));
-    
-                    
-                }
-                } catch (error) {
-                    console.log(error);
             }
-        } else {
-            console.log("passwords differ")
+            } catch (error) {
+                console.log(error);
         }
         
     };
@@ -86,30 +82,18 @@ export default function ChangePasswordScreen({route, navigation}) {
                             <Path d="M12.0208 0.707105C12.4114 0.316582 13.0445 0.316582 13.435 0.707106L14.8493 2.12132C15.2398 2.51184 15.2398 3.14501 14.8493 3.53553L7.3848 11H27C27.5523 11 28 11.4477 28 12V14C28 14.5523 27.5523 15 27 15H7.92896L14.8493 21.9203C15.2398 22.3108 15.2398 22.944 14.8493 23.3345L13.435 24.7487C13.0445 25.1393 12.4114 25.1393 12.0208 24.7487L0.707108 13.435C0.316583 13.0445 0.316584 12.4113 0.707109 12.0208L12.0208 0.707105Z" fill="#B3B3B3"/>
                         </Svg>
                     </TouchableOpacity>
-                    <Text style={{color:"#A0A0A0", fontSize:24, fontWeight: "bold"}}>Change password</Text>
+                    <Text style={{color:"#A0A0A0", fontSize:24, fontWeight: "bold"}}>Change Email</Text>
                 </View>
                 
                 
                 <TextInput
-                onChangeText={val => setOldPassword(val)}
-                style={styles.textinput} secureTextEntry={true}
-                placeholder="Old password"
-                keyboardType="numeric"
+                onChangeText={val => setOldEmail(val)}
+                style={styles.textinput}
+                placeholder="Email"
+                value={old_email}
               />
-              <TextInput
-                onChangeText={val => setNewPassword(val)}
-                style={styles.textinput} secureTextEntry={true}
-                placeholder="New password"
-                keyboardType="numeric"
-              />
-              <TextInput
-                onChangeText={val => setNewPassword2(val)}
-                style={styles.textinput} secureTextEntry={true}
-                placeholder="Confirm new password"
-                keyboardType="numeric"
-              />
-              <TouchableOpacity style={styles.loginButton} onPress={changePass.bind(this)}>
-                <Text style={{color: "white", fontSize: 16 }}>Change Password</Text>
+              <TouchableOpacity style={styles.loginButton} onPress={changeEmail.bind(this)}>
+                <Text style={{color: "white", fontSize: 16 }}>Change Email</Text>
               </TouchableOpacity>
 
             </SafeAreaView> 

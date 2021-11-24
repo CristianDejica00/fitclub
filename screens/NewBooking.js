@@ -12,8 +12,8 @@ import { Modalize } from 'react-native-modalize';
 export default function NewBookingsScreen({route, navigation}) {
 
     const goToScreen = (x) => {
-        if(x == "bookings") {
-            navigation.navigate('BookingsScreen');
+        if(x == "home") {
+            navigation.navigate('HomeScreen');
         }
     }
 
@@ -23,7 +23,7 @@ export default function NewBookingsScreen({route, navigation}) {
             <StatusBar backgroundColor="#FFFFFF"/>
             <SafeAreaView style={styles.safearea}>
                 <View style={styles.homeHeader}>
-                    <TouchableOpacity onPress={goToScreen.bind(this, 'bookings')}>
+                    <TouchableOpacity onPress={goToScreen.bind(this, 'home')}>
                         <Svg width="28" height="26" viewBox="0 0 28 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <Path d="M12.0208 0.707105C12.4114 0.316582 13.0445 0.316582 13.435 0.707106L14.8493 2.12132C15.2398 2.51184 15.2398 3.14501 14.8493 3.53553L7.3848 11H27C27.5523 11 28 11.4477 28 12V14C28 14.5523 27.5523 15 27 15H7.92896L14.8493 21.9203C15.2398 22.3108 15.2398 22.944 14.8493 23.3345L13.435 24.7487C13.0445 25.1393 12.4114 25.1393 12.0208 24.7487L0.707108 13.435C0.316583 13.0445 0.316584 12.4113 0.707109 12.0208L12.0208 0.707105Z" fill="#B3B3B3"/>
                         </Svg>

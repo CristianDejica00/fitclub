@@ -11,6 +11,49 @@ import { Modalize } from 'react-native-modalize';
 
 export default function SettingsScreen({route, navigation}) {
 
+    
+    const [sesdata, setSesdata] = useState('');
+    const [useremail, setUserEmail] = useState('');
+
+    
+    useEffect(() => {
+        const f = async () => {
+          try {
+            const data = await AsyncStorage.getItem("@sessiondata");
+              if (data !== null) {
+                setSesdata(data);
+
+                setUserEmail(JSON.parse(data)['email']);
+
+                /*let myTempToken = JSON.parse(data)['token_type'] + " " + JSON.parse(data)['access_token'];
+
+                var myHeaders = new Headers();
+                myHeaders.append("Authorization", myTempToken);
+            
+                var requestOptions = {
+                    method: 'GET',
+                    headers: myHeaders,
+                    redirect: 'follow'
+                };
+            
+                fetch("http://ffapi.moncea.ro/public/api/users/"+ JSON.parse(data)['id'] +"/checkins", requestOptions)
+                .then(response => response.text())
+                .then(result => {
+                    setCheckins(JSON.parse(result)['data']);
+                })
+                .catch(error => console.log('error', error));*/
+
+                
+              }
+            } catch (error) {
+                console.log(error);
+          }
+        };
+        f();
+    }, []);
+
+
+
     const goToScreen = (x) => {
         if(x == "home") {
             navigation.navigate('HomeScreen');
@@ -24,6 +67,8 @@ export default function SettingsScreen({route, navigation}) {
             navigation.navigate('CheckinsScreen');
         } else if(x == "changepassword") {
             navigation.navigate('ChangePasswordScreen');
+        } else if(x == "changeemail") {
+            navigation.navigate('ChangeEmailScreen');
         }
     }
 
@@ -46,17 +91,21 @@ export default function SettingsScreen({route, navigation}) {
                     <Text style={{color:"#A0A0A0", fontSize:24, fontWeight: "bold"}}>Settings</Text>
                 </View>
                 <View style={{ flexDirection: "row", justifyContent: "space-between", borderBottomWidth: 1, borderBottomColor: "#E6E6E6", paddingVertical: 20 }}>
-                    <Text style={{color: "#B3B3B3", fontSize: 16}}>Phone number</Text>
-                    <Text style={{color: "#535353", fontSize: 16}}>0766102864</Text>
-                </View>
-                <View style={{ flexDirection: "row", justifyContent: "space-between", borderBottomWidth: 1, borderBottomColor: "#E6E6E6", paddingVertical: 20 }}>
                     <Text style={{color: "#B3B3B3", fontSize: 16}}>Email</Text>
-                    <Text style={{color: "#535353", fontSize: 16}}>username@domain.com</Text>
+                    <TouchableOpacity onPress={goToScreen.bind(this, "changeemail")} style={{flexDirection: "row", alignItems: "center"}}>
+                        <Text style={{color: "#5CBBBB", fontSize: 16}}>{useremail}</Text>
+                        <Svg style={{marginLeft: 6, marginTop:2}} width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <Path d="M5.79561 5.53108L1.84571 9.77976C1.5727 10.0734 1.13124 10.0734 0.861136 9.77976L0.204756 9.07373C-0.0682519 8.78007 -0.0682519 8.30522 0.204756 8.01468L3.00454 5.00312L0.204756 1.99156C-0.0682519 1.69791 -0.0682519 1.22306 0.204756 0.932521L0.858232 0.220244C1.13124 -0.0734146 1.5727 -0.0734146 1.8428 0.220244L5.7927 4.46892C6.06861 4.76257 6.06861 5.23743 5.79561 5.53108V5.53108Z" fill="#5CBBBB"/>
+                        </Svg>
+                    </TouchableOpacity>
                 </View>
                 <View style={{ flexDirection: "row", justifyContent: "space-between", borderBottomWidth: 1, borderBottomColor: "#E6E6E6", paddingVertical: 20 }}>
                     <Text style={{color: "#B3B3B3", fontSize: 16}}>Password</Text>
-                    <TouchableOpacity onPress={goToScreen.bind(this, "changepassword")}>
-                        <Text style={{color: "#5CBBBB", fontSize: 16, fontWeight: "bold"}}>Change password</Text>
+                    <TouchableOpacity onPress={goToScreen.bind(this, "changepassword")} style={{flexDirection: "row", alignItems: "center"}}>
+                        <Text style={{color: "#5CBBBB", fontSize: 16}}>Change password</Text>
+                        <Svg style={{marginLeft: 6, marginTop:2}} width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <Path d="M5.79561 5.53108L1.84571 9.77976C1.5727 10.0734 1.13124 10.0734 0.861136 9.77976L0.204756 9.07373C-0.0682519 8.78007 -0.0682519 8.30522 0.204756 8.01468L3.00454 5.00312L0.204756 1.99156C-0.0682519 1.69791 -0.0682519 1.22306 0.204756 0.932521L0.858232 0.220244C1.13124 -0.0734146 1.5727 -0.0734146 1.8428 0.220244L5.7927 4.46892C6.06861 4.76257 6.06861 5.23743 5.79561 5.53108V5.53108Z" fill="#5CBBBB"/>
+                        </Svg>
                     </TouchableOpacity>
                 </View>
                 <View style={{alignItems: "center", paddingVertical: 50}}>

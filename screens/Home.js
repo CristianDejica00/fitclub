@@ -13,6 +13,7 @@ import { StackActions, NavigationActions, CommonActions  } from 'react-navigatio
 export default function HomeScreen({route, navigation}) {
     
     const [sesdata, setSesdata] = useState('');
+    const [socialMedia, setSocialMedia] = useState('');
 
     useEffect(() => {
         const f = async () => {
@@ -20,13 +21,33 @@ export default function HomeScreen({route, navigation}) {
             const data = await AsyncStorage.getItem("@sessiondata");
               if (data !== null) {
                 setSesdata(data);
+
+                let myTempToken = JSON.parse(sesdata)['token_type'] + " " + JSON.parse(sesdata)['access_token'];
+
+                var myHeaders = new Headers();
+                myHeaders.append("Authorization", myTempToken);
+            
+                var requestOptions = {
+                    method: 'GET',
+                    headers: myHeaders,
+                    redirect: 'follow'
+                };
+            
+                fetch("http://ffapi.moncea.ro/public/api/v1/settings", requestOptions)
+                .then(response => response.text())
+                .then(result => {
+                    setSocialMedia(JSON.parse(result)['social_media']);
+                    console.log(socialMedia);
+                })
+                .catch(error => console.log('error', error));
+
               }
             } catch (error) {
             console.log(error);
           }
         };
         f();
-    });
+    }, []);
 
 
     const goToScreen = (x) => {
@@ -87,6 +108,10 @@ export default function HomeScreen({route, navigation}) {
         catch(exception) {
             console.log(exception);
         }
+    }
+
+    const goToSite = (u) => {
+        Linking.openURL(u);
     }
 
     if(sesdata) {
@@ -262,22 +287,6 @@ export default function HomeScreen({route, navigation}) {
 
                 
                 <View style={{height:40}}></View>
-
-
-
-
-                {/*<Text>access_token : {sesdata['access_token']}</Text>
-                <Text>token_type : {sesdata['token_type']}</Text>
-                <Text>expires_at : {sesdata['expires_at']}</Text>
-                <Text>id : {sesdata['id']}</Text>
-                <Text>first_name : {sesdata['first_name']}</Text>
-                <Text>last_name : {sesdata['last_name']}</Text>
-                <Text>email : {sesdata['email']}</Text>
-                <Text>fitclub_id : {sesdata['fitclub_id']}</Text>
-                <Text>fitclub_name : {sesdata['fitclub_name']}</Text>
-                <Text>fitclub_feedback_email : {sesdata['fitclub_feedback_email']}</Text>
-                <Text>member_card : {sesdata['member_card']}</Text>
-    <Image style={{height: 200}} resizeMode="contain" source={{ uri: sesdata['member_card'] }} /> */}
             </SafeAreaView> 
         </ScrollView>
         <View style={styles.navbar}>
@@ -341,18 +350,18 @@ export default function HomeScreen({route, navigation}) {
             <TouchableOpacity onPress={logout.bind(this)} style={styles.menulink}><Text style={{fontSize:20, color: "#E57D6F"}}>Log out</Text></TouchableOpacity>
             <View style={{flexDirection: "row", marginVertical: 20}}>
                 <TouchableOpacity style={{marginRight:20}}>
-                    <Svg width="24" height="24" viewBox="0 0 31 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <Svg onPress={goToSite.bind(this, socialMedia? socialMedia['facebook'] : "")} width="24" height="24" viewBox="0 0 31 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <Path d="M30.1826 15.0913C30.1826 6.75456 23.428 0 15.0913 0C6.75456 0 0 6.75456 0 15.0913C0 22.6235 5.51866 28.8669 12.7333 30V19.4538H8.89959V15.0913H12.7333V11.7663C12.7333 7.98438 14.9848 5.89533 18.4333 5.89533C20.0848 5.89533 21.8118 6.18986 21.8118 6.18986V9.90183H19.9083C18.0341 9.90183 17.4493 11.0653 17.4493 12.2586V15.0913H21.6347L20.9653 19.4538H17.4493V30C24.6639 28.8669 30.1826 22.6235 30.1826 15.0913Z" fill="#A0A0A0"/>
                     </Svg>
                 </TouchableOpacity>
                 <TouchableOpacity style={{marginRight:20}}>
-                    <Svg width="24" height="24" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <Svg onPress={goToSite.bind(this, socialMedia? socialMedia['instagram'] : "")} width="24" height="24" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <Path d="M15.0033 7.30838C10.7468 7.30838 7.31344 10.7425 7.31344 15C7.31344 19.2575 10.7468 22.6916 15.0033 22.6916C19.2599 22.6916 22.6933 19.2575 22.6933 15C22.6933 10.7425 19.2599 7.30838 15.0033 7.30838ZM15.0033 20.0006C12.2527 20.0006 10.0039 17.758 10.0039 15C10.0039 12.242 12.246 9.99944 15.0033 9.99944C17.7607 9.99944 20.0028 12.242 20.0028 15C20.0028 17.758 17.754 20.0006 15.0033 20.0006V20.0006ZM24.8015 6.99375C24.8015 7.99119 23.9983 8.78779 23.0078 8.78779C22.0106 8.78779 21.2142 7.98449 21.2142 6.99375C21.2142 6.00301 22.0173 5.19971 23.0078 5.19971C23.9983 5.19971 24.8015 6.00301 24.8015 6.99375ZM29.8946 8.81457C29.7808 6.41136 29.232 4.28261 27.4718 2.52873C25.7184 0.774852 23.5901 0.225929 21.1874 0.105433C18.7111 -0.0351445 11.2889 -0.0351445 8.81261 0.105433C6.41662 0.219235 4.28834 0.768158 2.52817 2.52203C0.767987 4.27591 0.225878 6.40466 0.10541 8.80788C-0.0351366 11.2847 -0.0351366 18.7086 0.10541 21.1854C0.219186 23.5886 0.767987 25.7174 2.52817 27.4713C4.28834 29.2251 6.40993 29.7741 8.81261 29.8946C11.2889 30.0351 18.7111 30.0351 21.1874 29.8946C23.5901 29.7808 25.7184 29.2318 27.4718 27.4713C29.2253 25.7174 29.7741 23.5886 29.8946 21.1854C30.0351 18.7086 30.0351 11.2914 29.8946 8.81457V8.81457ZM26.6955 23.843C26.1735 25.1551 25.1629 26.1659 23.8444 26.6947C21.8701 27.478 17.1852 27.2972 15.0033 27.2972C12.8215 27.2972 8.12995 27.4713 6.1623 26.6947C4.85053 26.1726 3.83993 25.1618 3.31121 23.843C2.52817 21.8682 2.70887 17.1823 2.70887 15C2.70887 12.8177 2.53486 8.12507 3.31121 6.15698C3.83324 4.84492 4.84384 3.8341 6.1623 3.30525C8.13664 2.52203 12.8215 2.70278 15.0033 2.70278C17.1852 2.70278 21.8767 2.52873 23.8444 3.30525C25.1562 3.8274 26.1668 4.83822 26.6955 6.15698C27.4785 8.13176 27.2978 12.8177 27.2978 15C27.2978 17.1823 27.4785 21.8749 26.6955 23.843Z" fill="#A0A0A0"/>
                     </Svg>
                 </TouchableOpacity>
                 <TouchableOpacity>
-                    <Svg width="30" height="24" viewBox="0 0 38 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <Path d="M33.9996 7.47654C34.0236 7.80464 34.0236 8.13283 34.0236 8.46093C34.0236 18.4687 26.2091 30 11.9263 30C7.52606 30 3.43844 28.7578 0 26.6016C0.625192 26.6719 1.22625 26.6953 1.8755 26.6953C5.50623 26.6953 8.84853 25.5 11.5175 23.461C8.10314 23.3906 5.24178 21.211 4.25592 18.2109C4.73686 18.2812 5.21773 18.3281 5.72272 18.3281C6.42 18.3281 7.11736 18.2343 7.76653 18.0703C4.20789 17.3671 1.53881 14.3203 1.53881 10.6406V10.5469C2.57271 11.1094 3.77506 11.461 5.04935 11.5078C2.95743 10.1484 1.58692 7.82809 1.58692 5.20307C1.58692 3.79685 1.97157 2.50779 2.64487 1.38278C6.46804 5.97652 12.2148 8.97647 18.6588 9.30466C18.5386 8.74215 18.4664 8.15627 18.4664 7.57032C18.4664 3.3984 21.9289 0 26.233 0C28.4691 0 30.4889 0.91406 31.9076 2.39062C33.6628 2.06251 35.3459 1.42967 36.8368 0.562504C36.2596 2.32036 35.0334 3.79692 33.4224 4.73436C34.9853 4.57037 36.5002 4.1484 37.8947 3.56253C36.8369 5.06246 35.5144 6.39835 33.9996 7.47654V7.47654Z" fill="#A0A0A0"/>
+                    <Svg onPress={goToSite.bind(this, socialMedia? socialMedia['website'] : "")} width="24" height="24" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <Path d="M9.99 0C4.47 0 0 4.48 0 10C0 15.52 4.47 20 9.99 20C15.52 20 20 15.52 20 10C20 4.48 15.52 0 9.99 0ZM16.92 6H13.97C13.65 4.75 13.19 3.55 12.59 2.44C14.43 3.07 15.96 4.35 16.92 6ZM10 2.04C10.83 3.24 11.48 4.57 11.91 6H8.09C8.52 4.57 9.17 3.24 10 2.04ZM2.26 12C2.1 11.36 2 10.69 2 10C2 9.31 2.1 8.64 2.26 8H5.64C5.56 8.66 5.5 9.32 5.5 10C5.5 10.68 5.56 11.34 5.64 12H2.26ZM3.08 14H6.03C6.35 15.25 6.81 16.45 7.41 17.56C5.57 16.93 4.04 15.66 3.08 14V14ZM6.03 6H3.08C4.04 4.34 5.57 3.07 7.41 2.44C6.81 3.55 6.35 4.75 6.03 6V6ZM10 17.96C9.17 16.76 8.52 15.43 8.09 14H11.91C11.48 15.43 10.83 16.76 10 17.96ZM12.34 12H7.66C7.57 11.34 7.5 10.68 7.5 10C7.5 9.32 7.57 8.65 7.66 8H12.34C12.43 8.65 12.5 9.32 12.5 10C12.5 10.68 12.43 11.34 12.34 12ZM12.59 17.56C13.19 16.45 13.65 15.25 13.97 14H16.92C15.96 15.65 14.43 16.93 12.59 17.56V17.56ZM14.36 12C14.44 11.34 14.5 10.68 14.5 10C14.5 9.32 14.44 8.66 14.36 8H17.74C17.9 8.64 18 9.31 18 10C18 10.69 17.9 11.36 17.74 12H14.36Z" fill="#A0A0A0"/>
                     </Svg>
                 </TouchableOpacity>
             </View>
@@ -362,7 +371,9 @@ export default function HomeScreen({route, navigation}) {
 
 } else {
     return(
-        <View><Text>Loading</Text></View>
+        <View style={{alignItems: "center", justifyContent: "center", flex: 1}}>
+            <Image style={{width: 60, marginTop: 20}} resizeMode="contain" source={require('../assets/spinner.gif')} />
+        </View>
     );
 }
     
