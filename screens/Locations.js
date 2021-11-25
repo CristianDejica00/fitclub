@@ -7,6 +7,7 @@ import Checkbox from 'react-native-modest-checkbox';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Modalize } from 'react-native-modalize';
+import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 
 
 export default function LocationsScreen({route, navigation}) {
@@ -19,6 +20,8 @@ export default function LocationsScreen({route, navigation}) {
     const [locationAddress, setLocationAddress] = useState('');
     const [locationName, setLocationName] = useState('');
     const [locationSchedule, setLocationSchedule] = useState('');
+    const [locationLatitude, setLatitude] = useState('');
+    const [locationLongitude, setLongitude] = useState('');
 
     
 
@@ -31,7 +34,7 @@ export default function LocationsScreen({route, navigation}) {
               if (data !== null) {
                 setSesdata(data);
 
-                let myTempToken = JSON.parse(sesdata)['token_type'] + " " + JSON.parse(sesdata)['access_token'];
+                let myTempToken = JSON.parse(data)['token_type'] + " " + JSON.parse(data)['access_token'];
 
                 var myHeaders = new Headers();
                 myHeaders.append("Authorization", myTempToken);
@@ -96,6 +99,8 @@ export default function LocationsScreen({route, navigation}) {
             setLocationPhone(JSON.parse(result)['phone_numbers']);
             setLocationName(JSON.parse(result)['name']);
             setLocationSchedule(JSON.parse(result)['schedule']);
+            setLatitude(JSON.parse(result)['latitude']);
+            setLongitude(JSON.parse(result)['longitude']);
             modalizeRef.current?.open();
         })
         .catch(error => console.log('error ' + id, error));
@@ -115,7 +120,9 @@ export default function LocationsScreen({route, navigation}) {
                         <Text style={{color:"#A0A0A0", fontSize:24, fontWeight: "bold"}}>Our locations</Text>
                     </View>
 
-                    
+                    <View style={{borderRadius: 20 / 2, overflow: "hidden", marginBottom:10}}>
+                        <ImageBackground source={{ uri: "https://images.unsplash.com/photo-1540496905036-5937c10647cc?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80" }} style={{ width:"100%", height:200, borderRadius:10 }} resizeMode="cover"></ImageBackground>
+                    </View>
                     
                     {
                         JSON.parse(locations)['data'].map(n => (
@@ -126,7 +133,6 @@ export default function LocationsScreen({route, navigation}) {
                                     </View>
                                     <Text style={{color: "#757575", fontSize: 12}}>{n['city']}</Text>
                                 </View>
-                                <ImageBackground source={{ uri: "https://images.unsplash.com/photo-1540496905036-5937c10647cc?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80" }} style={{ width:90, height:60 }} resizeMode="cover"></ImageBackground>
                             </TouchableOpacity>
                         ))
                     }
@@ -196,67 +202,67 @@ export default function LocationsScreen({route, navigation}) {
                             <Text style={{color: "#A0A0A0", fontSize: 16}}>Monday</Text>
                             <View>
                             {locationSchedule["mon"] ? locationSchedule["mon"].map(n => (
-                                <View>
+                                <View key={locationSchedule['mon'].indexOf(n)}>
                                     <Text style={{color: "#757575", fontSize: 16, marginBottom:5}}>{n['start_time'].substring(0, n['start_time'].length-3)} - {n['end_time'].substring(0, n['end_time'].length-3)}</Text>
                                 </View>
-                            )) : <View></View>}
+                            )) : <View><Text style={{color: "#E57D6F"}}>Closed</Text></View>}
                             </View>
                         </View>
                         <View style={{flexDirection: "row", justifyContent: "space-between", marginTop:10}}>
                             <Text style={{color: "#A0A0A0", fontSize: 16}}>Tuesday</Text>
                             <View>
                             {locationSchedule["tue"] ? locationSchedule["tue"].map(n => (
-                                <View>
+                                <View key={locationSchedule['tue'].indexOf(n)}>
                                     <Text style={{color: "#757575", fontSize: 16, marginBottom:5}}>{n['start_time'].substring(0, n['start_time'].length-3)} - {n['end_time'].substring(0, n['end_time'].length-3)}</Text>
                                 </View>
-                            )) : <View></View>}
+                            )) : <View><Text style={{color: "#E57D6F"}}>Closed</Text></View>}
                             </View>
                         </View>
                         <View style={{flexDirection: "row", justifyContent: "space-between", marginTop:10}}>
                             <Text style={{color: "#A0A0A0", fontSize: 16}}>Wednesday</Text>
                             <View>
                             {locationSchedule["wed"] ? locationSchedule["wed"].map(n => (
-                                <View>
+                                <View key={locationSchedule['wed'].indexOf(n)}>
                                     <Text style={{color: "#757575", fontSize: 16, marginBottom:5}}>{n['start_time'].substring(0, n['start_time'].length-3)} - {n['end_time'].substring(0, n['end_time'].length-3)}</Text>
                                 </View>
-                            )) : <View></View>}
+                            )) : <View><Text style={{color: "#E57D6F"}}>Closed</Text></View>}
                             </View>
                         </View>
                         <View style={{flexDirection: "row", justifyContent: "space-between", marginTop:10}}>
                             <Text style={{color: "#A0A0A0", fontSize: 16}}>Thursday</Text>
                             <View>
                             {locationSchedule["thu"] ? locationSchedule["thu"].map(n => (
-                                <View>
+                                <View key={locationSchedule['thu'].indexOf(n)}>
                                     <Text style={{color: "#757575", fontSize: 16, marginBottom:5}}>{n['start_time'].substring(0, n['start_time'].length-3)} - {n['end_time'].substring(0, n['end_time'].length-3)}</Text>
                                 </View>
-                            )) : <View></View>}
+                            )) : <View><Text style={{color: "#E57D6F"}}>Closed</Text></View>}
                             </View>
                         </View>
                         <View style={{flexDirection: "row", justifyContent: "space-between", marginTop:10}}>
                             <Text style={{color: "#A0A0A0", fontSize: 16}}>Friday</Text>
                             <View>
                             {locationSchedule["fri"] ? locationSchedule["fri"].map(n => (
-                                <View>
+                                <View key={locationSchedule['fri'].indexOf(n)}>
                                     <Text style={{color: "#757575", fontSize: 16, marginBottom:5}}>{n['start_time'].substring(0, n['start_time'].length-3)} - {n['end_time'].substring(0, n['end_time'].length-3)}</Text>
                                 </View>
-                            )) : <View></View>}
+                            )) : <View><Text style={{color: "#E57D6F"}}>Closed</Text></View>}
                             </View>
                         </View>
                         <View style={{flexDirection: "row", justifyContent: "space-between", marginTop:10}}>
                             <Text style={{color: "#A0A0A0", fontSize: 16}}>Saturday</Text>
                             <View>
                             {locationSchedule["sat"] ? locationSchedule["sat"].map(n => (
-                                <View>
+                                <View key={locationSchedule['sat'].indexOf(n)}>
                                     <Text style={{color: "#757575", fontSize: 16, marginBottom:5}}>{n['start_time'].substring(0, n['start_time'].length-3)} - {n['end_time'].substring(0, n['end_time'].length-3)}</Text>
                                 </View>
-                            )) : <View></View>}
+                            )) : <View><Text style={{color: "#E57D6F"}}>Closed</Text></View>}
                             </View>
                         </View>
                         <View style={{flexDirection: "row", justifyContent: "space-between", marginTop:10}}>
                             <Text style={{color: "#A0A0A0", fontSize: 16}}>Sunday</Text>
                             <View>
                             {locationSchedule["sun"] ? locationSchedule["sun"].map(n => (
-                                <View>
+                                <View key={locationSchedule['sun'].indexOf(n)}>
                                     <Text style={{color: "#757575", fontSize: 16, marginBottom:5}}>{n['start_time'].substring(0, n['start_time'].length-3)} - {n['end_time'].substring(0, n['end_time'].length-3)}</Text>
                                 </View>
                             )) : <View><Text style={{color: "#E57D6F"}}>Closed</Text></View>}
@@ -265,6 +271,24 @@ export default function LocationsScreen({route, navigation}) {
                     </View>
 
                     <Text style={{marginVertical:20, color: "#757575", fontSize: 16}}>{locationAddress}</Text>
+
+
+                    {/*<MapView
+                    provider={PROVIDER_GOOGLE} // remove if not using Google Maps
+                    style={{width:"100%", height:300}}
+                    initialRegion={{
+                        latitude: locationLatitude.toString(),
+                        longitude: locationLongitude.toString(),
+                        latitudeDelta: 0.0922,
+                        longitudeDelta: 0.0421,
+                    }}
+                    >
+                    
+                    </MapView>*/}
+
+                    <View style={{height:40}}></View>
+
+
                     
                 </View>
             </Modalize>
